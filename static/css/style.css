@@ -1,0 +1,221 @@
+/* static/css/style.css */
+:root {
+    --primary: #3498db;      /* Unlocked Blue */
+    --success: #2ecc71;      /* Mastered Green */
+    --locked: #95a5a6;       /* Locked Grey */
+    --bg-dark: #2c3e50;
+    --text-light: #ecf0f1;
+    --sidebar-width: 300px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    height: 100vh;
+    overflow: hidden; /* Prevent scroll on body */
+    direction: rtl; /* Arabic support */
+}
+
+/* --- Layout --- */
+#app-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- Sidebar --- */
+#sidebar {
+    width: var(--sidebar-width);
+    background-color: #34495e;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #4a6278;
+    z-index: 1000;
+}
+
+#sidebar h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+    text-align: center;
+}
+
+#itinerary-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.region-item {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.region-item:hover {
+    transform: translateX(-5px);
+    background: rgba(0,0,0,0.3);
+}
+
+.region-item.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.reset-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Map Area --- */
+#map {
+    flex-grow: 1;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Custom Leaflet Tooltip */
+.leaflet-tooltip {
+    background: var(--bg-dark);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* --- Modal --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000; /* Top layer */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    color: #333;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    left: 20px; /* Left for RTL */
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close-btn:hover { color: #333; }
+
+/* --- Quiz UI --- */
+.question-block {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.question-block h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.options label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.options label:hover {
+    background-color: #f0f0f0;
+}
+
+.options input[type="radio"] {
+    margin-left: 10px; /* Spacing for RTL */
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover { background-color: #2980b9; }
+
+/* --- Feedback Colors --- */
+.correct {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.incorrect {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* --- Loader --- */
+.loader {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+}
+/* Add to the bottom of style.css */
+
+#map {
+    background-color: #f4f4f4; /* Light grey background instead of Google Maps */
+}
