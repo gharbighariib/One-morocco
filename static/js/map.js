@@ -1,47 +1,18 @@
 // static/js/map.js
 
-// 1. Initialize Map (LOCKED: No zoom/pan)
+// 1. Initialize Map (LOCKED)
 const map = L.map('map', {
     center: [29.5, -7.5],
     zoom: 5,
-    zoomControl: false,      // Remove +/- buttons
-    dragging: false,         // Disable dragging
-    scrollWheelZoom: false,  // Disable scroll zoom
-    doubleClickZoom: false,  // Disable double click zoom
-    touchZoom: false         // Disable touch zoom
+    zoomControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    touchZoom: false
 });
-
-// Background color (ocean effect)
 document.getElementById('map').style.backgroundColor = '#E0F7FA';
 
-// 2. ID TRANSLATOR
-// This converts my GeoJSON IDs to the MA-01 format Python expects
-// i should Find this function inside map.js and REPLACE it
-function resolveId(rawId, rawName) {
-    // 1. Check if it's already an MA-XX code
-    if (rawId && rawId.startsWith("MA-")) return rawId;
-
-    // 2. Map by Name (English/French/Arabic keywords found in logs)
-    // We check if the name contains these keywords
-    if (rawName) {
-        if (rawName.includes("Tanger") || rawName.includes("طنجة")) return "MA-01";
-        if (rawName.includes("Oriental") || rawName.includes("الشرق")) return "MA-02";
-        if (rawName.includes("Fès-Meknès") || rawName.includes("فاس-مكناس")) return "MA-03";
-        if (rawName.includes("Rabat-Salé") || rawName.includes("الرباط")) return "MA-04";
-        if (rawName.includes("Béni Mellal") || rawName.includes("بني ملال")) return "MA-05";
-        if (rawName.includes("Casablanca") || rawName.includes("الدار البيضاء")) return "MA-06";
-        if (rawName.includes("Marrakech") || rawName.includes("مراكش")) return "MA-07";
-        if (rawName.includes("Drâa-Tafilalet") || rawName.includes("درعة")) return "MA-08";
-        if (rawName.includes("Souss-Massa") || rawName.includes("سوس")) return "MA-09";
-        if (rawName.includes("Guelmim") || rawName.includes("كلميم")) return "MA-10";
-        if (rawName.includes("Laâyoune") || rawName.includes("العيون")) return "MA-11";
-        if (rawName.includes("Dakhla") || rawName.includes("الداخلة")) return "MA-12";
-    }
-
-    return null;
-}
-
-// 3. Region Names for Sidebar
+// 2. Region Names & Global Vars
 const regionNames = {
     "MA-01": "طنجة تطوان الحسيمة", "MA-02": "الشرق", "MA-03": "فاس مكناس",
     "MA-04": "الرباط سلا القنيطرة", "MA-05": "بني ملال خنيفرة", "MA-06": "الدار البيضاء سطات",
@@ -49,7 +20,10 @@ const regionNames = {
     "MA-10": "كلميم واد نون", "MA-11": "العيون الساقية الحمراء", "MA-12": "الداخلة وادي الذهب"
 };
 
-// 4. Sidebar Initialization
+let regionsLayer; // To store map layers
+let isDevModeActive = false;
+
+// 3. Sidebar Initialization
 function initSidebar() {
     const list = document.getElementById('itinerary-list');
     list.innerHTML = '';
@@ -58,14 +32,53 @@ function initSidebar() {
         const item = document.createElement('div');
         item.id = `list-${id}`;
         item.className = 'region-item';
-        item.innerHTML = `<span>${regionNames[id]}</span><span class="status-dot"></span>`;
+
+        item.innerHTML = `
+            <div class="region-info" style="display:flex; justify-content:space-between; width:100%;">
+                <span>${regionNames[id]}</span>
+                <span class="status-dot" style="width:10px; height:10px; border-radius:50%;"></span>
+            </div>
+            <div class="progress-container" style="width:100%; height:4px; background:#eee; margin-top:5px; border-radius:2px;">
+                <div class="progress-fill" style="height:100%; width:0%; background:#3498db; border-radius:2px; transition: width 0.5s;"></div>
+            </div>
+        `;
+
         item.onclick = () => openQuizModal(id);
         list.appendChild(item);
     });
 }
 initSidebar();
 
-// 5. Load GeoJSON
+// 4. Developer Mode (Ctrl + Shift + D)
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'D') {
+        e.preventDefault();
+
+        if (isDevModeActive) {
+            if (confirm("🔒 Exit Developer Mode?\n\nReset to normal progress?")) {
+                fetch('/api/dev/reset', { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                        alert(data.message);
+                        isDevModeActive = false;
+                        updateMapState();
+                    });
+            }
+        } else {
+            if (confirm("🔓 Enter Developer Mode?\n\nUnlock ALL regions?")) {
+                fetch('/api/dev/unlock', { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                        alert(data.message);
+                        isDevModeActive = true;
+                        updateMapState();
+                    });
+            }
+        }
+    }
+});
+
+// 5. Load GeoJSON & Smart ID Resolution
 fetch('/data/regions.json')
     .then(res => res.json())
     .then(data => {
@@ -73,63 +86,82 @@ fetch('/data/regions.json')
 
         // Filter out Western Sahara
         features = features.filter(f => {
-            const name = f.properties.name || f.properties.NAME || "";
-            return !name.includes("Western Sahara") && !name.includes("الصحراء الغربية");
+            const name = (f.properties.name || f.properties.NAME || "").toLowerCase();
+            return !name.includes("western sahara") && !name.includes("الصحراء الغربية");
         });
 
         regionsLayer = L.geoJSON(features, {
             style: { fillColor: '#95a5a6', weight: 2, color: 'white', fillOpacity: 0.7 },
             onEachFeature: (feature, layer) => {
-                // --- ID Detection ---
-                const props = feature.properties;
-                const rawId = props.id || props.ID || props.iso_3166_2_code || props.code;
-                const rawName = props.name_ar || props.name || props.NAME;
+                // --- SMART ID RESOLUTION ---
+                let id = feature.properties.id || feature.properties.ID || feature.properties.iso_3166_2_code;
 
-                // Use our translator
-                const correctId = resolveId(rawId, rawName);
-                feature.properties.resolved_id = correctId; // Store it
+                // If ID is missing, find it by name
+                if (!id) {
+                    const name = (feature.properties.name || feature.properties.name_ar || "").toLowerCase();
 
-                // Debug: See what ID was found
-                console.log(`Map Region: ${rawName} | Raw ID: ${rawId} | Resolved To: ${correctId}`);
-
-                // Bind Tooltip
-                if (correctId && regionNames[correctId]) {
-                    layer.bindTooltip(regionNames[correctId]);
-                } else {
-                    layer.bindTooltip(rawName);
+                    if (name.includes("طنجة") || name.includes("tanger")) id = "MA-01";
+                    else if (name.includes("شرق") || name.includes("oriental")) id = "MA-02";
+                    else if (name.includes("فاس") || name.includes("fès")) id = "MA-03";
+                    else if (name.includes("رباط") || name.includes("rabat")) id = "MA-04";
+                    else if (name.includes("بني ملال") || name.includes("mellal")) id = "MA-05";
+                    else if (name.includes("بيضاء") || name.includes("casablanca")) id = "MA-06";
+                    else if (name.includes("مراكش") || name.includes("marrakech")) id = "MA-07";
+                    else if (name.includes("درعة") || name.includes("drâa")) id = "MA-08";
+                    else if (name.includes("سوس") || name.includes("souss")) id = "MA-09";
+                    else if (name.includes("كلميم") || name.includes("guelmim")) id = "MA-10";
+                    else if (name.includes("عيون") || name.includes("laâyoune")) id = "MA-11";
+                    else if (name.includes("داخلة") || name.includes("dakhla")) id = "MA-12";
                 }
 
-                // Click Event
+                // Save ID back to feature for later use
+                feature.properties.resolved_id = id;
+
+                // Tooltip
+                layer.bindTooltip(regionNames[id] || feature.properties.name_ar);
+
+                // Click
                 layer.on('click', () => {
-                    if (correctId) {
-                        openQuizModal(correctId);
-                    } else {
-                        alert("تعذر تحديد معرف المنطقة (ID غير معروف)");
-                    }
+                    if (id) openQuizModal(id);
+                    else console.warn("Unknown region clicked");
                 });
             }
         }).addTo(map);
 
         map.fitBounds(regionsLayer.getBounds());
-        updateMapState();
+        updateMapState(); // Initial load
     });
 
-// 6. Update Colors
+// 6. Update Colors & Progress Bar
 function updateMapState() {
     fetch('/api/progress')
         .then(res => res.json())
         .then(states => {
             regionsLayer.eachLayer(layer => {
-                const id = layer.feature.properties.resolved_id; // Use our resolved ID
-                const status = states[id];
+                const id = layer.feature.properties.resolved_id;
+                const data = states[id];
 
-                if (status) {
+                if (data) {
+                    const status = data.status;
+                    const percent = data.percent;
+
+                    // Update Map Color
                     layer.setStyle({ fillColor: getColor(status) });
-                }
 
-                const listItem = document.getElementById(`list-${id}`);
-                if (listItem && status) {
-                   listItem.querySelector('.status-dot').style.background = getColor(status);
+                    // Update Sidebar
+                    const listItem = document.getElementById(`list-${id}`);
+                    if (listItem) {
+                        // Update Class (for colors)
+                        listItem.className = `region-item ${status}`;
+
+                        // Update Progress Bar Width
+                        const progressBar = listItem.querySelector('.progress-fill');
+                        if (progressBar) {
+                            progressBar.style.width = `${percent}%`;
+                            // Update bar color based on status
+                            progressBar.style.backgroundColor = getColor(status);
+                        }
+                    }
                 }
             });
         });

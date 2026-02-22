@@ -1,18 +1,21 @@
 import json
 import os
+import sqlite3
+from contextlib import closing
 from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
 app = Flask(__name__)
 
-DATA_DIR = "data"
+# --- CONFIGURATION ---
+# Get absolute paths to ensure files are found
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
 QUESTIONS_FILE = os.path.join(DATA_DIR, "questions.json")
+DATABASE = os.path.join(BASE_DIR, "database.db")
 
-# --- DATABASE ---
-user_progress = {}
-
-# --- REGION CONFIGURATION ---
+# --- REGION DATA ---
 REGIONS_ORDER = [
     {"id": "MA-01", "name_ar": "طنجة تطوان الحسيمة"},
     {"id": "MA-02", "name_ar": "الشرق"},
@@ -28,203 +31,148 @@ REGIONS_ORDER = [
     {"id": "MA-12", "name_ar": "الداخلة وادي الذهب"},
 ]
 
-# --- HARDCODED QUESTIONS (No file needed) ---
-HARDCODED_QUESTIONS = {
-    "MA-01": [
-        {
-            "id": "MA-01_Q1",
-            "question": "ما هي عاصمة منطقة طنجة تطوان الحسيمة؟",
-            "options": ["طنجة", "فاس", "الرباط", "مراكش"],
-            "answer": "طنجة",
-            "region_id": "MA-01",
-        },
-        {
-            "id": "MA-01_Q2",
-            "question": "أين تقع منطقة طنجة تطوان الحسيمة؟",
-            "options": ["شمال المغرب", "وسط المغرب", "جنوب المغرب", "شرق المغرب"],
-            "answer": "شمال المغرب",
-            "region_id": "MA-01",
-        },
-    ],
-    "MA-02": [
-        {
-            "id": "MA-02_Q1",
-            "question": "ما هي عاصمة منطقة الشرق؟",
-            "options": ["وجدة", "طنجة", "أكادير", "فاس"],
-            "answer": "وجدة",
-            "region_id": "MA-02",
-        },
-        {
-            "id": "MA-02_Q2",
-            "question": "تقع منطقة الشرق على الحدود مع أي دولة؟",
-            "options": ["الجزائر", "موريتانيا", "ليبيا", "تونس"],
-            "answer": "الجزائر",
-            "region_id": "MA-02",
-        },
-    ],
-    "MA-03": [
-        {
-            "id": "MA-03_Q1",
-            "question": "ما هي عاصمة فاس مكناس؟",
-            "options": ["فاس", "مكناس", "إفران", "صفرو"],
-            "answer": "فاس",
-            "region_id": "MA-03",
-        }
-    ],
-    "MA-04": [
-        {
-            "id": "MA-04_Q1",
-            "question": "ما هي عاصمة الرباط سلا القنيطرة؟",
-            "options": ["الرباط", "سلا", "القنيطرة", "سيدي قاسم"],
-            "answer": "الرباط",
-            "region_id": "MA-04",
-        }
-    ],
-    "MA-05": [
-        {
-            "id": "MA-05_Q1",
-            "question": "ما هي عاصمة بني ملال خنيفرة؟",
-            "options": ["بني ملال", "خنيفرة", "أزرو", "خريبكة"],
-            "answer": "بني ملال",
-            "region_id": "MA-05",
-        }
-    ],
-    "MA-06": [
-        {
-            "id": "MA-06_Q1",
-            "question": "ما هي عاصمة الدار البيضاء سطات؟",
-            "options": ["الدار البيضاء", "سطات", "الجديدة", "برشيد"],
-            "answer": "الدار البيضاء",
-            "region_id": "MA-06",
-        }
-    ],
-    "MA-07": [
-        {
-            "id": "MA-07_Q1",
-            "question": "ما هي عاصمة مراكش آسفي؟",
-            "options": ["مراكش", "آسفي", "الحوز", "شيشاوة"],
-            "answer": "مراكش",
-            "region_id": "MA-07",
-        }
-    ],
-    "MA-08": [
-        {
-            "id": "MA-08_Q1",
-            "question": "ما هي عاصمة درعة تافيلالت؟",
-            "options": ["ورززات", "الرشيدية", "تنغير", "زاكورة"],
-            "answer": "ورززات",
-            "region_id": "MA-08",
-        }
-    ],
-    "MA-09": [
-        {
-            "id": "MA-09_Q1",
-            "question": "ما هي عاصمة سوس ماسة؟",
-            "options": ["أكادير", "أيت ملول", "تارودانت", "تزنيت"],
-            "answer": "أكادير",
-            "region_id": "MA-09",
-        }
-    ],
-    "MA-10": [
-        {
-            "id": "MA-10_Q1",
-            "question": "ما هي عاصمة كلميم واد نون؟",
-            "options": ["كلميم", "السمارة", "طانطان", "أفلا"],
-            "answer": "كلميم",
-            "region_id": "MA-10",
-        }
-    ],
-    "MA-11": [
-        {
-            "id": "MA-11_Q1",
-            "question": "ما هي عاصمة العيون الساقية الحمراء؟",
-            "options": ["العيون", "بوحجور", "المرسى", "طرفاية"],
-            "answer": "العيون",
-            "region_id": "MA-11",
-        }
-    ],
-    "MA-12": [
-        {
-            "id": "MA-12_Q1",
-            "question": "ما هي عاصمة الداخلة وادي الذهب؟",
-            "options": ["الداخلة", "الكويرة", "لمصيرة", "بوجدور"],
-            "answer": "الداخلة",
-            "region_id": "MA-12",
-        }
-    ],
-}
+
+# --- DATABASE FUNCTIONS ---
+def get_db():
+    return sqlite3.connect(DATABASE)
 
 
-def initialize_user_progress():
-    global user_progress
-    if user_progress:
-        return
+def init_db():
+    if not os.path.exists(DATABASE):
+        print(f"Creating new database at: {DATABASE}")
 
+    with closing(get_db()) as db:
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS progress (
+                question_id TEXT PRIMARY KEY,
+                region_id TEXT NOT NULL,
+                interval INTEGER,
+                next_review TEXT,
+                mastered INTEGER
+            )
+        """)
+        db.commit()
+
+
+def load_progress_from_db():
+    print("--- LOADING DATA ---")
+    progress = {}
+
+    # 1. Initialize empty structure
+    for region in REGIONS_ORDER:
+        progress[region["id"]] = {
+            "unlocked": False,
+            "mastered_count": 0,
+            "questions": [],
+            "total_questions": 0,
+        }
+
+    # 2. Load Questions from JSON
     raw_questions = []
 
-    # 1. Try to load from file
-    if os.path.exists(QUESTIONS_FILE):
-        try:
-            with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
+    print(f"Looking for questions at: {QUESTIONS_FILE}")
+    if not os.path.exists(QUESTIONS_FILE):
+        print("❌ ERROR: questions.json NOT FOUND at the path above!")
+        print("Please ensure the file exists in the 'data' folder.")
+        return progress  # Return empty to avoid crash
 
-                # CHECK FORMAT: Is it a Dictionary {"MA-01": [...]} or List [...]?
-                if isinstance(data, dict):
-                    # It's a dictionary. Iterate through keys (Region IDs)
-                    print("INFO: Loading questions from Dictionary format...")
-                    for r_id, q_list in data.items():
-                        # Add metadata
-                        for q in q_list:
-                            q.setdefault("state", "new")
-                            q.setdefault("interval", 0)
-                            q.setdefault("next_review", datetime.now().isoformat())
-                            q.setdefault("mastered", False)
+    try:
+        with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            print("✅ Successfully loaded JSON file.")
 
-                        # Store directly
-                        user_progress[r_id] = {
-                            "unlocked": False,
-                            "mastered_count": 0,
-                            "total_questions": len(q_list),
-                            "questions": q_list,
-                        }
+            if isinstance(data, dict):
+                # Format: {"MA-01": [...]}
+                for r_id, q_list in data.items():
+                    for q in q_list:
+                        raw_questions.append(q)
+            elif isinstance(data, list):
+                # Format: [...]
+                raw_questions = data
 
-                elif isinstance(data, list):
-                    # It's a list (old format)
-                    print("INFO: Loading questions from List format...")
-                    raw_questions = data
+            print(f"Total raw questions found: {len(raw_questions)}")
 
-        except Exception as e:
-            print(f"Error reading JSON: {e}")
+    except Exception as e:
+        print(f"❌ ERROR reading JSON: {e}")
+        return progress
 
-    # 2. Fallback (if List format or empty)
+    # 3. Attach Questions to Regions
     for region in REGIONS_ORDER:
         r_id = region["id"]
+        # Filter questions for this region
+        reg_qs = [q for q in raw_questions if q.get("region_id") == r_id]
 
-        # Only process if not already loaded from Dictionary
-        if r_id not in user_progress:
-            reg_questions = [q for q in raw_questions if q.get("region_id") == r_id]
+        # Add FSRS metadata
+        for q in reg_qs:
+            q.setdefault("state", "new")
+            q.setdefault("interval", 0)
+            q.setdefault("next_review", datetime.now().isoformat())
+            q.setdefault("mastered", False)
 
-            if not reg_questions:
-                # Fallback to hardcoded if absolutely nothing found
-                if r_id in HARDCODED_QUESTIONS:
-                    reg_questions = HARDCODED_QUESTIONS[r_id]
+        progress[r_id]["questions"] = reg_qs
+        progress[r_id]["total_questions"] = len(reg_qs)
 
-            for q in reg_questions:
-                q.setdefault("state", "new")
-                q.setdefault("interval", 0)
-                q.setdefault("next_review", datetime.now().isoformat())
-                q.setdefault("mastered", False)
+    # 4. Load Saved State from DB
+    with closing(get_db()) as db:
+        cur = db.execute(
+            "SELECT question_id, region_id, interval, next_review, mastered FROM progress"
+        )
+        rows = cur.fetchall()
 
-            user_progress[r_id] = {
-                "unlocked": False,
-                "mastered_count": 0,
-                "total_questions": len(reg_questions),
-                "questions": reg_questions,
-            }
+        # ... inside load_progress_from_db ...
+        for row in rows:
+            q_id, r_id, interval, next_review, mastered = row
+            if r_id in progress:
+                q = next(
+                    (q for q in progress[r_id]["questions"] if q["id"] == q_id), None
+                )
+                if q:
+                    q["interval"] = interval
+                    q["next_review"] = next_review
+                    q["mastered"] = bool(mastered)
 
-    # 3. Unlock first region
-    if "MA-01" in user_progress:
-        user_progress["MA-01"]["unlocked"] = True
+                    # FIX: Count as mastered if answered correctly at least once (interval > 0)
+                    if interval > 0:
+                        progress[r_id]["mastered_count"] += 1
+
+    # 5. Calculate Unlocks
+    for i, region in enumerate(REGIONS_ORDER):
+        r_id = region["id"]
+        if i == 0:
+            progress[r_id]["unlocked"] = True
+        else:
+            prev_id = REGIONS_ORDER[i - 1]["id"]
+            prev_total = progress[prev_id]["total_questions"]
+            prev_mastered = progress[prev_id]["mastered_count"]
+
+            if prev_total > 0 and (prev_mastered / prev_total) >= 0.75:
+                progress[r_id]["unlocked"] = True
+
+    print("--- DATA LOADED SUCCESSFULLY ---")
+    return progress
+
+
+def save_question_to_db(q_data, region_id):
+    with closing(get_db()) as db:
+        db.execute(
+            """INSERT OR REPLACE INTO progress
+                      (question_id, region_id, interval, next_review, mastered)
+                      VALUES (?, ?, ?, ?, ?)""",
+            (
+                q_data["id"],
+                region_id,
+                q_data["interval"],
+                q_data["next_review"],
+                int(q_data["mastered"]),
+            ),
+        )
+        db.commit()
+
+
+# --- GLOBAL STATE ---
+user_progress = {}
+
+# --- ROUTES ---
 
 
 @app.route("/")
@@ -239,7 +187,9 @@ def get_regions():
 
 @app.route("/api/progress")
 def get_progress():
-    initialize_user_progress()
+    global user_progress
+    if not user_progress:
+        user_progress = load_progress_from_db()
 
     map_state = {}
     for r_id, data in user_progress.items():
@@ -249,30 +199,48 @@ def get_progress():
             status = "mastered"
         else:
             status = "unlocked"
-        map_state[r_id] = status
+
+        total = data["total_questions"]
+        mastered = data["mastered_count"]
+        percent = (mastered / total * 100) if total > 0 else 0
+
+        map_state[r_id] = {"status": status, "percent": round(percent, 1)}
 
     return jsonify(map_state)
 
 
+@app.route("/api/dev/unlock", methods=["POST"])
+def dev_unlock():
+    global user_progress
+    if not user_progress:
+        user_progress = load_progress_from_db()
+    for r_id in user_progress:
+        user_progress[r_id]["unlocked"] = True
+    return jsonify({"status": "success", "message": "All regions unlocked!"})
+
+
+@app.route("/api/dev/reset", methods=["POST"])
+def dev_reset():
+    global user_progress
+    user_progress = load_progress_from_db()
+    return jsonify({"status": "success", "message": "Progress reset to saved state."})
+
+
 @app.route("/api/quiz/<region_id>")
 def get_quiz(region_id):
-    initialize_user_progress()
+    global user_progress
+    if not user_progress:
+        user_progress = load_progress_from_db()
 
-    # Force unlock MA-01 for testing
     if region_id == "MA-01" and region_id in user_progress:
         user_progress["MA-01"]["unlocked"] = True
 
     region_data = user_progress.get(region_id)
 
-    # --- ROBUST CHECKS ---
     if not region_data:
         return jsonify({"error": "Region not found"}), 404
-
     if not region_data["unlocked"]:
         return jsonify({"error": "Region locked"}), 403
-
-    if not region_data["questions"]:
-        return jsonify([])  # Return empty list if no questions
 
     now = datetime.now()
     due_questions = [
@@ -282,8 +250,6 @@ def get_quiz(region_id):
     ]
 
     quiz_set = due_questions[:7]
-
-    # Strip answers
     safe_quiz = []
     for q in quiz_set:
         safe_q = q.copy()
@@ -295,6 +261,10 @@ def get_quiz(region_id):
 
 @app.route("/api/submit", methods=["POST"])
 def submit_quiz():
+    global user_progress
+    if not user_progress:
+        user_progress = load_progress_from_db()
+
     data = request.json
     region_id = data.get("region_id")
     answers = data.get("answers", [])
@@ -323,12 +293,16 @@ def submit_quiz():
                 datetime.now() + timedelta(days=new_interval)
             ).isoformat()
 
-            if new_interval >= 21 and not question["mastered"]:
+            # FIX: If this is the first time getting it right (interval became 1), count it!
+            if new_interval == 1 and not question["mastered"]:
+                # We treat "mastered" as "learned once" for the demo
                 question["mastered"] = True
                 region_data["mastered_count"] += 1
         else:
             question["interval"] = 0
             question["next_review"] = datetime.now().isoformat()
+
+        save_question_to_db(question, region_id)
 
         results.append(
             {"id": q_id, "correct": correct, "correct_answer": question["answer"]}
@@ -356,12 +330,7 @@ def submit_quiz():
     return jsonify(response)
 
 
-# ... (rest of your code) ...
-
 if __name__ == "__main__":
-    # FORCE LOADING ON STARTUP
-    print("--- SERVER STARTING: Loading Questions Now... ---")
-    initialize_user_progress()
-    print("--- LOADING COMPLETE ---")
-
+    init_db()
+    user_progress = load_progress_from_db()
     app.run(debug=True, port=5000)

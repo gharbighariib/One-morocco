@@ -1,20 +1,16 @@
 // static/js/quiz.js
 
-// 1. Define the variable globally at the top
 let currentRegionId = null;
 
 function openQuizModal(regionId) {
-    // 2. Store the ID so submitQuiz can use it later
     currentRegionId = regionId;
 
     const modal = document.getElementById('quiz-modal');
     const quizContainer = document.getElementById('quiz-content');
 
-    // Show loading state
     quizContainer.innerHTML = '<div class="loader">جاري التحميل...</div>';
     modal.style.display = 'flex';
 
-    // Fetch questions from backend
     fetch(`/api/quiz/${regionId}`)
         .then(res => res.json())
         .then(data => {
@@ -23,17 +19,12 @@ function openQuizModal(regionId) {
                 return;
             }
 
-            // Check if we actually got questions
             if (!data || data.length === 0) {
-                quizContainer.innerHTML = '<p style="text-align:center;">لا توجد أسئلة حالياً لهذه المنطقة (تحقق من region_id في ملف JSON)</p>';
+                quizContainer.innerHTML = '<p style="text-align:center;">لا توجد أسئلة حالياً</p>';
                 return;
             }
 
             renderQuiz(data);
-        })
-        .catch(err => {
-            console.error("Quiz Load Error:", err);
-            quizContainer.innerHTML = '<p style="color:red;">حدث خطأ في التحميل</p>';
         });
 }
 
@@ -59,7 +50,6 @@ function renderQuiz(questions) {
     html += `<button type="submit" class="submit-btn">إرسال</button></form>`;
     quizContainer.innerHTML = html;
 
-    // Handle form submission
     document.getElementById('quiz-form').addEventListener('submit', (e) => {
         e.preventDefault();
         submitQuiz(questions);
@@ -73,11 +63,10 @@ function submitQuiz(questions) {
     questions.forEach(q => {
         answers.push({
             id: q.id,
-            user_answer: formData.get(q.id) // Gets the selected value
+            user_answer: formData.get(q.id)
         });
     });
 
-    // Use the global currentRegionId
     fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -89,8 +78,7 @@ function submitQuiz(questions) {
     .then(res => res.json())
     .then(data => {
         showResults(data);
-    })
-    .catch(err => console.error("Submit Error:", err));
+    });
 }
 
 function showResults(data) {
@@ -113,7 +101,12 @@ function showResults(data) {
     if (data.region_unlocked) {
         setTimeout(() => {
             alert(`مبروك! لقد فتحت منطقة جديدة!`);
-            // updateMapState(); // You can call this if map.js exposes it globally
         }, 500);
+    }
+
+    // --- CRITICAL FIX: REFRESH PROGRESS BAR ---
+    // We call the function defined in map.js
+    if (typeof updateMapState === 'function') {
+        updateMapState();
     }
 }

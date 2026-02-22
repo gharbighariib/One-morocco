@@ -219,3 +219,24 @@ body {
 #map {
     background-color: #f4f4f4; /* Light grey background instead of Google Maps */
 }
+
+/* Progress Bar Styles */
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #95a5a6; /* Grey default */
+    border-radius: 3px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Dynamic colors based on status */
+.region-item.unlocked .progress-fill { background-color: #3498db; } /* Blue */
+.region-item.mastered .progress-fill { background-color: #2ecc71; } /* Green */
