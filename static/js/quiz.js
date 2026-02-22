@@ -8,24 +8,31 @@ function openQuizModal(regionId) {
     const modal = document.getElementById('quiz-modal');
     const quizContainer = document.getElementById('quiz-content');
 
+    // Check lock status (functions from map.js)
+    if (typeof checkUnlock === 'function' && !checkUnlock(regionId) && typeof isDevMode !== 'undefined' && !isDevMode) {
+        alert("هذه المنطقة مقفلة!");
+        return;
+    }
+
     quizContainer.innerHTML = '<div class="loader">جاري التحميل...</div>';
     modal.style.display = 'flex';
 
-    fetch(`/api/quiz/${regionId}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                quizContainer.innerHTML = `<p style="color:red; text-align:center;">${data.error}</p>`;
-                return;
-            }
+    // Access globalQuestions from map.js
+    if (typeof globalQuestions === 'undefined' || !globalQuestions.length) {
+        quizContainer.innerHTML = '<p>خطأ: لم يتم تحميل الأسئلة</p>';
+        return;
+    }
 
-            if (!data || data.length === 0) {
-                quizContainer.innerHTML = '<p style="text-align:center;">لا توجد أسئلة حالياً</p>';
-                return;
-            }
+    const questions = globalQuestions.filter(q => q.region_id === regionId);
+    const shuffled = questions.sort(() => 0.5 - Math.random());
+    const quizSet = shuffled.slice(0, 5);
 
-            renderQuiz(data);
-        });
+    if (quizSet.length === 0) {
+        quizContainer.innerHTML = '<p>لا توجد أسئلة</p>';
+        return;
+    }
+
+    renderQuiz(quizSet);
 }
 
 function renderQuiz(questions) {
@@ -58,55 +65,55 @@ function renderQuiz(questions) {
 
 function submitQuiz(questions) {
     const formData = new FormData(document.getElementById('quiz-form'));
-    const answers = [];
+    let correctCount = 0;
 
     questions.forEach(q => {
-        answers.push({
-            id: q.id,
-            user_answer: formData.get(q.id)
-        });
-    });
-
-    fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            region_id: currentRegionId,
-            answers: answers
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        showResults(data);
-    });
-}
-
-function showResults(data) {
-    // Highlight correct/incorrect
-    data.results.forEach(res => {
-        const block = document.getElementById(`q-${res.id}`);
-        if (block) {
-            if (res.correct) {
-                block.classList.add('correct');
-            } else {
-                block.classList.add('incorrect');
-                const p = document.createElement('p');
-                p.innerText = `الجواب الصحيح: ${res.correct_answer}`;
-                block.appendChild(p);
-            }
+        const userAns = formData.get(q.id);
+        if (userAns === q.answer) {
+            correctCount++;
         }
     });
 
-    // Alert if new region unlocked
-    if (data.region_unlocked) {
-        setTimeout(() => {
-            alert(`مبروك! لقد فتحت منطقة جديدة!`);
-        }, 500);
+    // Update Progress (access userProgress from map.js)
+    if (typeof userProgress !== 'undefined' && userProgress[currentRegionId]) {
+        userProgress[currentRegionId].mastered += correctCount;
+        const total = userProgress[currentRegionId].total;
+        if (userProgress[currentRegionId].mastered > total) {
+            userProgress[currentRegionId].mastered = total;
+        }
+        // Call saveProgress from map.js
+        if (typeof saveProgress === 'function') saveProgress();
     }
 
-    // --- CRITICAL FIX: REFRESH PROGRESS BAR ---
-    // We call the function defined in map.js
-    if (typeof updateMapState === 'function') {
-        updateMapState();
+    showResults(questions, formData);
+}
+
+function showResults(questions, formData) {
+    questions.forEach(q => {
+        const block = document.getElementById(`q-${q.id}`);
+        const userAns = formData.get(q.id);
+
+        if (userAns === q.answer) {
+            block.classList.add('correct');
+        } else {
+            block.classList.add('incorrect');
+            const p = document.createElement('p');
+            p.innerText = `الجواب الصحيح: ${q.answer}`;
+            block.appendChild(p);
+        }
+    });
+
+    // Check unlock for next region
+    if (typeof REGION_IDS !== 'undefined') {
+        const idx = REGION_IDS.indexOf(currentRegionId);
+        if (idx < REGION_IDS.length - 1) {
+            const nextId = REGION_IDS[idx + 1];
+            if (typeof checkUnlock === 'function' && checkUnlock(nextId)) {
+                setTimeout(() => alert("مبروك! فتحت منطقة جديدة!"), 500);
+            }
+        }
     }
+
+    // Refresh UI (call updateUI from map.js)
+    if (typeof updateUI === 'function') updateUI();
 }
