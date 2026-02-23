@@ -2,14 +2,14 @@
 
 :root {
     /* Royal Moroccan Theme */
-    --primary: #006064;      /* Deep Cyan/Teal */
+    --primary: #006064; /* Deep Cyan/Teal */
     --primary-light: #0097a7;
-    --accent: #FFD740;       /* Gold/Amber */
-    --accent-hover: #FFC400;
-    --unlocked: #26C6DA;     /* Bright Cyan */
-    --mastered: #FFCA28;     /* Gold */
-    --locked: #CFD8DC;       /* Light Grey */
-    --bg-dark: #263238;      /* Blue Grey 900 */
+    --accent: #ffd740; /* Gold/Amber */
+    --accent-hover: #ffc400;
+    --unlocked: #26c6da; /* Bright Cyan */
+    --mastered: #ffca28; /* Gold */
+    --locked: #cfd8dc; /* Light Grey */
+    --bg-dark: #263238; /* Blue Grey 900 */
     --text-main: #263238;
     --text-light: #ffffff;
 }
@@ -21,7 +21,7 @@
 }
 
 body {
-    font-family: 'Tajawal', sans-serif;
+    font-family: "Tajawal", sans-serif;
     background-color: #eceff1; /* Light grey background */
     color: var(--text-main);
     height: 100vh;
@@ -42,7 +42,7 @@ body {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px); /* The "Glass" effect */
     border-left: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: -4px 0 15px rgba(0,0,0,0.05);
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     z-index: 1000;
@@ -50,9 +50,12 @@ body {
 }
 
 #sidebar::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; height: 6px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
@@ -73,9 +76,16 @@ body {
 }
 
 /* Custom Scrollbar */
-#itinerary-list::-webkit-scrollbar { width: 6px; }
-#itinerary-list::-webkit-scrollbar-track { background: transparent; }
-#itinerary-list::-webkit-scrollbar-thumb { background: #b0bec5; border-radius: 3px; }
+#itinerary-list::-webkit-scrollbar {
+    width: 6px;
+}
+#itinerary-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+#itinerary-list::-webkit-scrollbar-thumb {
+    background: #b0bec5;
+    border-radius: 3px;
+}
 
 /* --- REGION ITEM (The Card) --- */
 .region-item {
@@ -85,7 +95,7 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
     border: 1px solid transparent;
@@ -93,7 +103,7 @@ body {
 
 .region-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     border-color: var(--primary-light);
 }
 
@@ -103,7 +113,11 @@ body {
 }
 .region-item.mastered {
     border-right: 4px solid var(--mastered);
-    background: linear-gradient(to left, #fff8e1, #ffffff); /* Faint gold tint */
+    background: linear-gradient(
+        to left,
+        #fff8e1,
+        #ffffff
+    ); /* Faint gold tint */
 }
 .region-item.locked {
     opacity: 0.6;
@@ -112,12 +126,18 @@ body {
 
 /* Status Dot */
 .status-dot {
-    box-shadow: 0 0 0 2px rgba(255,255,255,1);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 1);
 }
 
-.region-item.unlocked .status-dot { background-color: var(--unlocked); }
-.region-item.mastered .status-dot { background-color: var(--mastered); }
-.region-item.locked .status-dot { background-color: var(--locked); }
+.region-item.unlocked .status-dot {
+    background-color: var(--unlocked);
+}
+.region-item.mastered .status-dot {
+    background-color: var(--mastered);
+}
+.region-item.locked .status-dot {
+    background-color: var(--locked);
+}
 
 /* --- PROGRESS BAR --- */
 .progress-container {
@@ -136,20 +156,36 @@ body {
     background-color: var(--primary); /* Default */
 }
 
-.region-item.unlocked .progress-fill { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
-.region-item.mastered .progress-fill { background: linear-gradient(90deg, #FFA000, var(--mastered)); }
+.region-item.unlocked .progress-fill {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+.region-item.mastered .progress-fill {
+    background: linear-gradient(90deg, #ffa000, var(--mastered));
+}
 
 /* Animation for progress */
 @keyframes progressShine {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
 .progress-fill::after {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
     animation: progressShine 2s infinite;
 }
 
@@ -161,11 +197,13 @@ body {
     border: none;
     color: white;
     border-radius: 8px;
-    font-family: 'Tajawal', sans-serif;
+    font-family: "Tajawal", sans-serif;
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
     box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
 }
 
@@ -187,10 +225,10 @@ body {
     color: white;
     border: none;
     border-radius: 6px;
-    font-family: 'Tajawal', sans-serif;
+    font-family: "Tajawal", sans-serif;
     font-weight: 500;
     padding: 5px 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* --- MODAL (Centered Card) --- */
@@ -218,13 +256,19 @@ body {
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes popIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .close-btn {
@@ -237,7 +281,9 @@ body {
     transition: color 0.2s;
 }
 
-.close-btn:hover { color: var(--primary); }
+.close-btn:hover {
+    color: var(--primary);
+}
 
 /* --- QUIZ UI --- */
 .question-block {
@@ -285,7 +331,7 @@ body {
     border: none;
     border-radius: 10px;
     font-size: 1.2rem;
-    font-family: 'Tajawal', sans-serif;
+    font-family: "Tajawal", sans-serif;
     font-weight: 700;
     cursor: pointer;
     margin-top: 20px;
@@ -303,13 +349,17 @@ body {
     background-color: #e8f5e9 !important;
     border: 2px solid #4caf50 !important;
 }
-.correct h3 { color: #2e7d32; }
+.correct h3 {
+    color: #2e7d32;
+}
 
 .incorrect {
     background-color: #ffebee !important;
     border: 2px solid #f44336 !important;
 }
-.incorrect h3 { color: #c62828; }
+.incorrect h3 {
+    color: #c62828;
+}
 
 .loader {
     text-align: center;
@@ -317,3 +367,18 @@ body {
     padding: 20px;
     color: var(--primary);
 }
+/* ... existing CSS ... */
+
+/* --- DISABLED NORTHERN REGIONS (Black-ish) --- */
+.region-item.disabled {
+    opacity: 0.6;
+    background-color: #cfd8dc; /* Grey background */
+    cursor: not-allowed;
+}
+
+.region-item.disabled span {
+    color: #546e7a; /* Darker text for contrast */
+}
+
+/* Map fill for disabled regions */
+/* We handle this in JS, but good to have a fallback */
