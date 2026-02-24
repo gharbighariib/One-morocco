@@ -382,3 +382,29 @@ body {
 
 /* Map fill for disabled regions */
 /* We handle this in JS, but good to have a fallback */
+/* --- INFO BUTTON STYLE --- */
+.region-item.info-button {
+    background: linear-gradient(135deg, #fff8e1, #ffffff); /* Light gold tint */
+    border: 2px solid #ffc107; /* Gold border */
+    border-right: 5px solid #ff8f00; /* Darker gold right border */
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2);
+    margin-bottom: 20px; /* Extra space below button */
+}
+
+.region-item.info-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+    background: #fff8e1;
+}
+.modal {
+    display: none;
+    position: fixed; /* This forces it to float over everything */
+    z-index: 2000; /* High number ensures it sits on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
