@@ -67,6 +67,11 @@ def get_all_questions():
         return send_from_directory(DATA_DIR, "questions_en.json")
 
 
+@app.route("/data/region_info.json")
+def get_region_info():
+    return send_from_directory(DATA_DIR, "region_info.json")
+
+
 @app.route("/api/regions")
 def get_regions_info():
     return jsonify(REGIONS_ORDER)

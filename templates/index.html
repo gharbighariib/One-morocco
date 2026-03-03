@@ -12,28 +12,35 @@
     <body>
 
         <div id="app-container">
+            <!-- RIGHT: Sidebar (Navigation) -->
             <div id="sidebar">
-                <!-- NEW: Header with Buttons -->
                 <div style="padding: 20px; border-bottom: 1px solid #eee;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <h1 id="sidebar-title" style="margin:0; font-size: 1.5rem; color: var(--primary);">الجهات الصحراوية</h1>
 
                         <div style="display: flex; gap: 5px;">
-                            <!-- Help Button -->
                             <button onclick="openHelpModal()" style="background:none; border:1px solid #ddd; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:1rem;">❔</button>
-                            <!-- Language Toggle -->
-                            <button onclick="toggleLanguage()" id="lang-btn" style="background:var(--primary); color:white; border:none; border-radius:4px; padding: 0 10px; height:30px; cursor:pointer; font-weight:bold;">
-                                EN
-                            </button>
+                            <button onclick="toggleLanguage()" id="lang-btn" style="background:var(--primary); color:white; border:none; border-radius:4px; padding: 0 10px; height:30px; cursor:pointer; font-weight:bold;">EN</button>
                         </div>
                     </div>
                 </div>
 
                 <div id="itinerary-list" style="padding: 0 15px;">
-                    <!-- List items go here -->
+                    <!-- List items rendered by JS -->
                 </div>
             </div>
+
+            <!-- CENTER: Map -->
             <div id="map"></div>
+
+            <!-- LEFT: Info Panel (New Position) -->
+            <div id="info-panel">
+                <div id="info-placeholder">
+                    <span style="font-size: 2rem; display: block; margin-bottom: 10px;">🗺️</span>
+                    <p id="info-placeholder-text" style="margin:0; font-size: 0.95rem;">مرر الماوس على منطقة للاطلاع على المعلومات</p>
+                </div>
+                <div id="info-content" style="display: none;"></div>
+            </div>
         </div>
 
         <!-- QUIZ MODAL -->
@@ -45,14 +52,18 @@
         </div>
 
         <!-- GAMMA MODAL -->
+        <!-- GAMMA MODAL -->
         <div id="gamma-modal" class="modal">
-            <div class="modal-content" style="max-width: 800px; height: 80vh; padding: 0; overflow: hidden;">
-                <span class="close-btn" onclick="closeGammaModal()">&times;</span>
+            <!-- Increased max-width for better viewing -->
+            <div class="modal-content" style="max-width: 900px; height: 90vh; padding: 0; position: relative; overflow: hidden;">
+                <!-- FIX: Higher Z-index for button and added explicit position -->
+                <span class="close-btn" onclick="closeGammaModal()" style="position: absolute; top: 15px; right: 15px; z-index: 1000; background: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">&times;</span>
                 <iframe
                     src="https://gamma.app/embed/u2mhzp72zaj0yrn"
                     style="width: 100%; height: 100%; border: none;"
                     allow="fullscreen"
-                    title="History"></iframe>
+                    title="History">
+                </iframe>
             </div>
         </div>
 

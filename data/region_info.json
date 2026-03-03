@@ -1,0 +1,35 @@
+[
+  {
+    "id": "MA-10",
+    "name_ar": "كلميم واد نون",
+    "name_en": "Guelmim-Oued Noun",
+    "capital_ar": "كلميم",
+    "capital_en": "Guelmim",
+    "area": "46,000 km²",
+    "population": "480,000",
+    "description_ar": "تعرف بكونها 'بوابة الصحراء'، وتتميز بساحل أطلسي غني بالثروات السمكية وواحات النخيل. تضم مدينة سيدي إفني الجميلة وشاطئ لغزيرة.",
+    "description_en": "Known as the 'Gateway to the Sahara', it features an Atlantic coast rich in fisheries and palm oases. It includes the beautiful town of Sidi Ifni and Legzira Beach."
+  },
+  {
+    "id": "MA-11",
+    "name_ar": "العيون الساقية الحمراء",
+    "name_en": "Laâyoune-Sakia El Hamra",
+    "capital_ar": "العيون",
+    "capital_en": "Laâyoune",
+    "area": "39,000 km²",
+    "population": "410,000",
+    "description_ar": "العاصمة الإدارية للأقاليم الجنوبية. مدينة حديثة تتوسطها وادي 'الساقية الحمراء'، وتعد مركزاً دبلوماسياً هاماً مع افتتاح عشرات القنصليات.",
+    "description_en": "The administrative capital of the Southern Provinces. A modern city centered around the 'Sakia El Hamra' wadi, serving as a key diplomatic hub with dozens of consulates opened."
+  },
+  {
+    "id": "MA-12",
+    "name_ar": "الداخلة وادي الذهب",
+    "name_en": "Dakhla-Oued Ed-Dahab",
+    "capital_ar": "الداخلة",
+    "capital_en": "Dakhla",
+    "area": "50,000 km²",
+    "population": "200,000",
+    "description_ar": "تقع على شبه جزيرة في المحيط الأطلسي، تشتهر بكونها وجهة عالمية لرياضة 'الكيترسورف' وبمشاريع التنمية الكبرى والميناء الأطلسي الجديد.",
+    "description_en": "Located on a peninsula in the Atlantic Ocean, famous globally as a destination for 'Kitesurfing' and for major development projects and the new Atlantic Port."
+  }
+]

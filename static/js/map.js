@@ -302,6 +302,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (SAHARA_REGIONS.includes(id)) {
             layer.on("click", () => openQuizModal(id));
+
+            // Attach Hover Listeners for Info Panel
+            layer.on({
+              mouseover: () => showRegionInfo(id),
+              mouseout: () => hideRegionInfo(),
+            });
           }
         },
       }).addTo(map);
@@ -387,3 +393,92 @@ function getColor(status) {
       ? "#26C6DA"
       : "#90a4ae";
 }
+
+// ==========================================
+// 9. REGION INFO ZONE (HOVER)
+// ==========================================
+
+let regionInfoData = [];
+
+function loadRegionInfo() {
+  fetch("/data/region_info.json")
+    .then((res) => res.json())
+    .then((data) => {
+      regionInfoData = data;
+      attachInfoListeners();
+    })
+    .catch((err) => console.error("Could not load region info", err));
+}
+
+function showRegionInfo(regionId) {
+  const info = regionInfoData.find((r) => r.id === regionId);
+  if (!info) return;
+
+  const placeholder = document.getElementById("info-placeholder");
+  const content = document.getElementById("info-content");
+
+  placeholder.style.display = "none";
+  content.style.display = "block";
+
+  const name = currentLang === "en" ? info.name_en : info.name_ar;
+  const capital = currentLang === "en" ? info.capital_en : info.capital_ar;
+  const desc = currentLang === "en" ? info.description_en : info.description_ar;
+  const popLabel = currentLang === "en" ? "Population" : "السكان";
+  const areaLabel = currentLang === "en" ? "Area" : "المساحة";
+  const capitalLabel = currentLang === "en" ? "Capital" : "العاصمة";
+
+  content.innerHTML = `
+        <h3 style="margin: 0 0 15px 0; color: var(--primary); font-size: 1.3rem;">${name}</h3>
+        <p style="margin: 5px 0; font-size: 0.95rem;"><strong>📍 ${capitalLabel}:</strong> ${capital}</p>
+        <p style="margin: 5px 0; font-size: 0.95rem;"><strong>📐 ${areaLabel}:</strong> ${info.area}</p>
+        <p style="margin: 5px 0; font-size: 0.95rem;"><strong>👥 ${popLabel}:</strong> ${info.population}</p>
+        <hr>
+        <p style="font-size: 0.9rem; color: #555; line-height: 1.6; margin-top: 10px;">${desc}</p>
+    `;
+}
+
+function hideRegionInfo() {
+  const placeholder = document.getElementById("info-placeholder");
+  const content = document.getElementById("info-content");
+  const placeholderText = document.getElementById("info-placeholder-text");
+
+  // Update placeholder text based on language
+  if (currentLang === "en") {
+    placeholderText.innerText = "Hover over a region for details";
+  } else {
+    placeholderText.innerText = "مرر الماوس على منطقة للاطلاع على المعلومات";
+  }
+
+  placeholder.style.display = "block";
+  content.style.display = "none";
+}
+
+function attachInfoListeners() {
+  SAHARA_REGIONS.forEach((id) => {
+    // 1. Sidebar List Hover
+    const listItem = document.getElementById(`list-${id}`);
+    if (listItem) {
+      listItem.addEventListener("mouseenter", () => showRegionInfo(id));
+      listItem.addEventListener("mouseleave", () => hideRegionInfo());
+    }
+  });
+
+  // 2. Map Layer Hover (Handled inside the GeoJSON creation)
+  // We will modify the onEachFeature block to include these events
+  if (regionsLayer) {
+    regionsLayer.eachLayer((layer) => {
+      const id = layer.feature.properties.resolved_id;
+      if (SAHARA_REGIONS.includes(id)) {
+        layer.on({
+          mouseover: () => showRegionInfo(id),
+          mouseout: () => hideRegionInfo(),
+        });
+      }
+    });
+  }
+}
+
+// --- Load Info on Start ---
+document.addEventListener("DOMContentLoaded", () => {
+  loadRegionInfo();
+});
