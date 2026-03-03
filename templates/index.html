@@ -10,63 +10,77 @@
         <link rel="stylesheet" href="/static/css/style.css" />
     </head>
     <body>
-        <div id="app-container">
-            <!-- Sidebar -->
-            <div id="sidebar">
-                <h1>🗺️ المناطق</h1>
-                <div id="itinerary-list">
-                    <!-- JS puts the list here -->
-                </div>
-            </div>
-            <!-- GAMMA MODAL (NEW: Place it HERE, outside the containers) -->
-            <div id="gamma-modal" class="modal">
-                <div
-                    class="modal-content"
-                    style="
-                        max-width: 800px;
-                        height: 80vh;
-                        padding: 0;
-                        overflow: hidden;
-                    "
-                >
-                    <span class="close-btn" onclick="closeGammaModal()"
-                        >&times;</span
-                    >
-                    <iframe
-                        src="https://gamma.app/embed/u2mhzp72zaj0yrn"
-                        style="width: 100%; height: 100%; border: none"
-                        allow="fullscreen"
-                        title="الصحراء الغربية: جزء من تاريخ المغرب"
-                    >
-                    </iframe>
-                </div>
-            </div>
 
-            <!-- Map -->
+        <div id="app-container">
+            <div id="sidebar">
+                <!-- NEW: Header with Buttons -->
+                <div style="padding: 20px; border-bottom: 1px solid #eee;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h1 id="sidebar-title" style="margin:0; font-size: 1.5rem; color: var(--primary);">الجهات الصحراوية</h1>
+
+                        <div style="display: flex; gap: 5px;">
+                            <!-- Help Button -->
+                            <button onclick="openHelpModal()" style="background:none; border:1px solid #ddd; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:1rem;">❔</button>
+                            <!-- Language Toggle -->
+                            <button onclick="toggleLanguage()" id="lang-btn" style="background:var(--primary); color:white; border:none; border-radius:4px; padding: 0 10px; height:30px; cursor:pointer; font-weight:bold;">
+                                EN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="itinerary-list" style="padding: 0 15px;">
+                    <!-- List items go here -->
+                </div>
+            </div>
             <div id="map"></div>
         </div>
 
-        <!-- Modal -->
+        <!-- QUIZ MODAL -->
         <div id="quiz-modal" class="modal">
             <div class="modal-content">
-                <span
-                    class="close-btn"
-                    onclick="
-                        document.getElementById('quiz-modal').style.display =
-                            'none'
-                    "
-                    >&times;</span
-                >
+                <span class="close-btn" onclick="document.getElementById('quiz-modal').style.display='none'">&times;</span>
                 <div id="quiz-content"></div>
             </div>
         </div>
 
-        <!-- ... HTML content ... -->
+        <!-- GAMMA MODAL -->
+        <div id="gamma-modal" class="modal">
+            <div class="modal-content" style="max-width: 800px; height: 80vh; padding: 0; overflow: hidden;">
+                <span class="close-btn" onclick="closeGammaModal()">&times;</span>
+                <iframe
+                    src="https://gamma.app/embed/u2mhzp72zaj0yrn"
+                    style="width: 100%; height: 100%; border: none;"
+                    allow="fullscreen"
+                    title="History"></iframe>
+            </div>
+        </div>
 
-        <!-- 1. Leaflet Library (Must be first) -->
+        <!-- NEW: HELP MODAL -->
+        <div id="help-modal" class="modal">
+            <div class="modal-content" style="max-width: 600px;">
+                <span class="close-btn" onclick="closeHelpModal()">&times;</span>
+                <h2 id="help-title" style="margin-bottom: 20px; color: var(--primary);">كيفية استخدام التطبيق</h2>
+                <div id="help-content" style="line-height: 1.8; color: #555;">
+                    <p><strong>1. الخريطة:</strong> الخريطة تعرض الأقاليم الجنوبية للمغرب. المناطق الرمادية مغلقة حالياً.</p>
+                    <br>
+                    <p><strong>2. الاختبارات:</strong> انقر على منطقة مفتوحة (زرقاء) لبدء اختبار من 5 أسئلة.</p>
+                    <br>
+                    <p><strong>3. التقدم:</strong>
+                       <ul>
+                           <li>الشريط الأزرق يمتد مع كل إجابة صحيحة.</li>
+                           <li>عندما يصل الشريط إلى 75%، تفتح المنطقة التالية تلقائياً!</li>
+                       </ul>
+                    </p>
+                    <br>
+                    <p><strong>4. تطوير (لجنة التحكيم):</strong>
+                       اضغط <strong>Ctrl + Shift + D</strong> لفتح جميع المناطق فوراً للاختبار.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-        <!-- 2. Your Custom Scripts -->
         <script src="/static/js/map.js"></script>
         <script src="/static/js/quiz.js"></script>
     </body>

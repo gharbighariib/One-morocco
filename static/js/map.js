@@ -1,6 +1,61 @@
 // static/js/map.js
 
-// --- 1. CONFIG ---
+// ==========================================
+// 1. LANGUAGE SYSTEM & CONFIG
+// ==========================================
+
+let currentLang = "ar";
+
+const translations = {
+  ar: {
+    title: "الجهات الصحراوية",
+    learn_history: "📖 تعرف على التاريخ والخلفية",
+    lang_btn: "EN",
+  },
+  en: {
+    title: "Saharan Provinces",
+    learn_history: "📖 Learn History & Background",
+    lang_btn: "عربي",
+  },
+};
+
+function T(key) {
+  return translations[currentLang][key];
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === "ar" ? "en" : "ar";
+
+  // Toggle Body Class for RTL/LTR
+  if (currentLang === "en") {
+    document.body.classList.add("ltr");
+  } else {
+    document.body.classList.remove("ltr");
+  }
+
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = translations[currentLang];
+
+  // Update Title
+  document.getElementById("sidebar-title").innerText = t.title;
+
+  // Update Language Button
+  document.getElementById("lang-btn").innerText = t.lang_btn;
+
+  // Re-render Sidebar
+  initSidebar();
+
+  // --- CRITICAL: Reload questions for the new language ---
+  loadQuestions();
+}
+
+// ==========================================
+// 2. DATA & STATE
+// ==========================================
+
 const REGION_IDS = [
   "MA-01",
   "MA-02",
@@ -15,7 +70,8 @@ const REGION_IDS = [
   "MA-11",
   "MA-12",
 ];
-const REGION_NAMES = {
+
+const REGION_NAMES_AR = {
   "MA-01": "طنجة تطوان الحسيمة",
   "MA-02": "الشرق",
   "MA-03": "فاس مكناس",
@@ -30,39 +86,60 @@ const REGION_NAMES = {
   "MA-12": "الداخلة وادي الذهب",
 };
 
+const REGION_NAMES_EN = {
+  "MA-01": "Tanger-Tetouan-Al Hoceima",
+  "MA-02": "Oriental",
+  "MA-03": "Fès-Meknès",
+  "MA-04": "Rabat-Salé-Kénitra",
+  "MA-05": "Béni Mellal-Khénifra",
+  "MA-06": "Casablanca-Settat",
+  "MA-07": "Marrakech-Safi",
+  "MA-08": "Drâa-Tafilalet",
+  "MA-09": "Souss-Massa",
+  "MA-10": "Guelmim-Oued Noun",
+  "MA-11": "Laâyoune-Sakia El Hamra",
+  "MA-12": "Dakhla-Oued Ed-Dahab",
+};
+
 const SAHARA_REGIONS = ["MA-10", "MA-11", "MA-12"];
+
 let globalQuestions = [];
 let userProgress = {};
 let regionsLayer;
 
-// --- 2. SIDEBAR (ONLY SAHARA) ---
-// --- 2. SIDEBAR (ONLY SAHARA + INFO BUTTON) ---
+// ==========================================
+// 3. SIDEBAR RENDERING
+// ==========================================
+
 function initSidebar() {
   const list = document.getElementById("itinerary-list");
   list.innerHTML = "";
 
-  // --- NEW: Educational Button ---
+  // --- History Button ---
   const infoItem = document.createElement("div");
-  infoItem.className = "region-item info-button"; // Special class
+  infoItem.className = "region-item info-button";
   infoItem.innerHTML = `
         <div style="display:flex; justify-content:center; align-items:center; width:100%; padding: 5px 0;">
-            <span style="font-weight: 700; font-size: 1.1rem;">📖 تعرف على التاريخ والخلفية</span>
+            <span style="font-weight: 700; font-size: 1.1rem;">${T("learn_history")}</span>
         </div>
     `;
-  // Open Gamma Modal on click
   infoItem.onclick = () => {
     document.getElementById("gamma-modal").style.display = "flex";
   };
   list.appendChild(infoItem);
 
-  // --- Existing Regions Loop ---
+  // --- Region List ---
   SAHARA_REGIONS.forEach((id) => {
     const item = document.createElement("div");
     item.id = `list-${id}`;
     item.className = "region-item";
+
+    const displayName =
+      currentLang === "en" ? REGION_NAMES_EN[id] : REGION_NAMES_AR[id];
+
     item.innerHTML = `
             <div style="display:flex; justify-content:space-between; width:100%;">
-                <span>${REGION_NAMES[id]}</span>
+                <span>${displayName}</span>
                 <span class="status-dot" style="width:10px; height:10px; border-radius:50%;"></span>
             </div>
             <div class="progress-container" style="width:100%; height:4px; background:#eee; margin-top:5px; border-radius:2px;">
@@ -70,19 +147,18 @@ function initSidebar() {
             </div>
         `;
 
-    if (SAHARA_REGIONS.includes(id)) {
-      item.onclick = () => openQuizModal(id);
-    } else {
-      item.style.cursor = "not-allowed";
-      item.style.opacity = "0.5";
-    }
-
+    item.onclick = () => openQuizModal(id);
     list.appendChild(item);
   });
 }
+
+// RUN IMMEDIATELY
 initSidebar();
 
-// --- 3. LOCAL STORAGE ---
+// ==========================================
+// 4. LOCAL STORAGE
+// ==========================================
+
 function saveProgress() {
   localStorage.setItem("morocco_sahara_progress", JSON.stringify(userProgress));
 }
@@ -99,7 +175,54 @@ function loadProgress() {
   }
 }
 
-// --- 4. DEVELOPER MODE ---
+// ==========================================
+// 5. QUESTION LOADING (DYNAMIC)
+// ==========================================
+
+function loadQuestions() {
+  // Determine which file to load
+  const url =
+    currentLang === "en" ? "/data/questions_en.json" : "/api/questions";
+
+  console.log("Switching language to: " + currentLang);
+  console.log("Fetching questions from: " + url);
+
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Handle both List [...] and Dictionary { "MA-01": [...] } formats
+      if (Array.isArray(data)) {
+        globalQuestions = data;
+      } else {
+        // Flatten dictionary
+        globalQuestions = [];
+        Object.keys(data).forEach((key) => {
+          if (Array.isArray(data[key])) {
+            globalQuestions.push(...data[key]);
+          }
+        });
+      }
+
+      console.log("Loaded " + globalQuestions.length + " questions.");
+
+      calculateTotals();
+      updateUI();
+    })
+    .catch((err) => {
+      console.error("Failed to load questions:", err);
+      alert("Error loading questions for language: " + currentLang);
+    });
+}
+
+// ==========================================
+// 6. DEVELOPER MODE
+// ==========================================
+
 let isDevMode = false;
 document.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "D") {
@@ -110,11 +233,16 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// --- 5. MAP INITIALIZATION ---
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof L === "undefined") return;
+// ==========================================
+// 7. MAP INITIALIZATION
+// ==========================================
 
-  // CHANGE: Reverted to show whole Morocco
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof L === "undefined") {
+    console.error("Leaflet not found");
+    return;
+  }
+
   const map = L.map("map", {
     center: [29.5, -7.5],
     zoom: 5,
@@ -170,27 +298,24 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           feature.properties.resolved_id = id;
 
-          layer.bindTooltip(REGION_NAMES[id] || feature.properties.name);
+          layer.bindTooltip(REGION_NAMES_AR[id] || feature.properties.name);
 
-          // Click logic: Only Sahara regions trigger the quiz
           if (SAHARA_REGIONS.includes(id)) {
             layer.on("click", () => openQuizModal(id));
           }
         },
       }).addTo(map);
 
-      fetch("/api/questions")
-        .then((res) => res.json())
-        .then((qs) => {
-          globalQuestions = qs;
-          loadProgress();
-          calculateTotals();
-          updateUI();
-        });
+      // --- Initial Load ---
+      loadProgress();
+      loadQuestions(); // Loads Arabic by default
     });
 });
 
-// --- LOGIC ---
+// ==========================================
+// 8. LOGIC
+// ==========================================
+
 function calculateTotals() {
   REGION_IDS.forEach((rId) => {
     const count = globalQuestions.filter((q) => q.region_id === rId).length;
@@ -201,8 +326,6 @@ function calculateTotals() {
 
 function checkUnlock(id) {
   if (isDevMode) return true;
-
-  // Northern regions are never unlocked for playing
   if (!SAHARA_REGIONS.includes(id)) return false;
 
   const idx = SAHARA_REGIONS.indexOf(id);
@@ -235,17 +358,15 @@ function updateUI() {
 
     let status = "locked";
 
-    // NEW LOGIC: Distinguish between Sahara and North
     if (SAHARA_REGIONS.includes(id)) {
       if (isUnlocked) status = percent >= 75 ? "mastered" : "unlocked";
       if (isDevMode) status = "unlocked";
     } else {
-      status = "disabled"; // Northern regions are disabled
+      status = "disabled";
     }
 
     layer.setStyle({ fillColor: getColor(status) });
 
-    // Update Sidebar (only updates items that exist in sidebar, i.e., Sahara)
     const listItem = document.getElementById(`list-${id}`);
     if (listItem) {
       listItem.className = `region-item ${status}`;
@@ -259,15 +380,10 @@ function updateUI() {
 }
 
 function getColor(status) {
-  if (status === "disabled") return "#455a64"; // Dark Grey for North
+  if (status === "disabled") return "#455a64";
   return status === "mastered"
     ? "#FFCA28"
     : status === "unlocked"
       ? "#26C6DA"
       : "#90a4ae";
-}
-// Add to bottom of map.js
-
-function closeGammaModal() {
-  document.getElementById("gamma-modal").style.display = "none";
 }

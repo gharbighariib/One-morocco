@@ -51,10 +51,20 @@ def get_regions():
     return send_from_directory(DATA_DIR, "regions.json")
 
 
+# Add this near your other @app.route lines
+@app.route("/data/questions_en.json")
+def get_questions_en():
+    return send_from_directory(DATA_DIR, "questions_en.json")
+
+
 @app.route("/api/questions")
 def get_all_questions():
     # Returns all questions so the frontend can manage them
     return jsonify(load_questions())
+
+    @app.route("/data/questions_en.json")
+    def get_questions_en():
+        return send_from_directory(DATA_DIR, "questions_en.json")
 
 
 @app.route("/api/regions")

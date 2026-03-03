@@ -408,3 +408,22 @@ body {
     justify-content: center;
     align-items: center;
 }
+/* --- RTL/LTR AUTOMATION --- */
+body {
+    direction: rtl;
+} /* Default Arabic */
+
+body.ltr {
+    direction: ltr;
+    text-align: left;
+}
+
+/* Flip sidebar border for LTR */
+body.ltr #sidebar {
+    border-left: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+body.ltr #sidebar::before {
+    right: 0;
+    left: auto;
+}

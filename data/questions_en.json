@@ -1,0 +1,958 @@
+{
+  "MA-10": [
+    {
+      "id": "MA-10_Q1",
+      "question": "ما هي عاصمة جهة كلميم واد نون؟",
+      "question_en": "What is the capital of the Guelmim-Oued Noun region?",
+      "options": ["كلميم", "طانطان", "سيدي إفني", "آسا"],
+      "options_en": ["Guelmim", "Tan-Tan", "Sidi Ifni", "Assa"],
+      "answer": "كلميم",
+      "answer_en": "Guelmim",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q2",
+      "question": "بماذا تلقب مدينة كلميم تاريخياً؟",
+      "question_en": "What is the historical nickname of the city of Guelmim?",
+      "options": [
+        "بوابة الصحراء",
+        "جوهرة المتوسط",
+        "مدينة النخيل",
+        "عروس الشمال"
+      ],
+      "options_en": [
+        "Gateway to the Sahara",
+        "Jewel of the Mediterranean",
+        "City of Palms",
+        "Bride of the North"
+      ],
+      "answer": "بوابة الصحراء",
+      "answer_en": "Gateway to the Sahara",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q3",
+      "question": "ما هو الحل الذي تصفه قرارات مجلس الأمن الأخيرة بأنه 'واقعي وعملي ومستدام' لنزاع الصحراء؟",
+      "question_en": "What solution do recent UN Security Council resolutions describe as 'realistic, practical, and sustainable' for the Sahara dispute?",
+      "options": [
+        "مبادرة الحكم الذاتي",
+        "الاستفتاء",
+        "التقسيم",
+        "الوضع القائم"
+      ],
+      "options_en": [
+        "Autonomy Plan Initiative",
+        "Referendum",
+        "Partition",
+        "Status Quo"
+      ],
+      "answer": "مبادرة الحكم الذاتي",
+      "answer_en": "Autonomy Plan Initiative",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q4",
+      "question": "أي مدينة بالجهة تشتهر بموسمها السنوي المصنف تراثاً عالمياً من طرف اليونسكو؟",
+      "question_en": "Which city in the region is famous for its annual festival classified as World Heritage by UNESCO?",
+      "options": ["طانطان", "كلميم", "سيدي إفني", "الزاك"],
+      "options_en": ["Tan-Tan", "Guelmim", "Sidi Ifni", "Zag"],
+      "answer": "طانطان",
+      "answer_en": "Tan-Tan",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q5",
+      "question": "ما هو الاسم الذي يطلق على المهرجان الثقافي الشهير في طانطان؟",
+      "question_en": "What is the name of the famous cultural festival in Tan-Tan?",
+      "options": [
+        "موسم طانطان",
+        "مهرجان تيميتار",
+        "موسم حب الملوك",
+        "مهرجان كناوة"
+      ],
+      "options_en": [
+        "Tan-Tan Moussem",
+        "Timitar Festival",
+        "Festival of Love of Kings",
+        "Gnawa Festival"
+      ],
+      "answer": "موسم طانطان",
+      "answer_en": "Tan-Tan Moussem",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q6",
+      "question": "أكد مجلس الأمن في قراراته الأخيرة على ضرورة عودة من إلى 'الموائد المستديرة' كطرف أساسي؟",
+      "question_en": "The Security Council in its recent resolutions emphasized the necessity of the return of whom to the 'round tables' as a key party?",
+      "options": ["الجزائر", "موريتانيا", "فرنسا", "إسبانيا"],
+      "options_en": ["Algeria", "Mauritania", "France", "Spain"],
+      "answer": "الجزائر",
+      "answer_en": "Algeria",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q7",
+      "question": "ما هي المدينة الساحلية التي استعادها المغرب من الاستعمار الإسباني عام 1969؟",
+      "question_en": "Which coastal city did Morocco recover from Spanish colonization in 1969?",
+      "options": ["سيدي إفني", "طرفاية", "بوجدور", "الداخلة"],
+      "options_en": ["Sidi Ifni", "Tarfaya", "Boujdour", "Dakhla"],
+      "answer": "سيدي إفني",
+      "answer_en": "Sidi Ifni",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q8",
+      "question": "بماذا تشتهر منطقة 'آسا الزاك' في الثقافة المحلية؟",
+      "question_en": "What is the 'Asa Zag' area famous for in local culture?",
+      "options": [
+        "الزوايا والعلماء (آسا مدينة 366 ولي)",
+        "صناعة السيارات",
+        "زراعة الحوامض",
+        "صيد المرجان"
+      ],
+      "options_en": [
+        "Zaouias and Scholars (Asa, city of 366 saints)",
+        "Car manufacturing",
+        "Citrus farming",
+        "Coral fishing"
+      ],
+      "answer": "الزوايا والعلماء (آسا مدينة 366 ولي)",
+      "answer_en": "Zaouias and Scholars (Asa, city of 366 saints)",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q9",
+      "question": "ما هو السوق الأسبوعي الشهير في كلميم الذي يعتبر الأكبر لتجارة الإبل في أفريقيا؟",
+      "question_en": "What is the famous weekly market in Guelmim considered the largest for camel trading in Africa?",
+      "options": ["سوق أمحيريش", "سوق الحد", "سوق السبت", "سوق الخميس"],
+      "options_en": [
+        "Amhirich Market",
+        "Sunday Market",
+        "Saturday Market",
+        "Thursday Market"
+      ],
+      "answer": "سوق أمحيريش",
+      "answer_en": "Amhirich Market",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q10",
+      "question": "ما هو الموقف الذي تبنته فرنسا مؤخراً (2024) وأيدته الأمم المتحدة كإطار وحيد للحل؟",
+      "question_en": "What stance did France recently (2024) adopt and the UN endorsed as the sole framework for the solution?",
+      "options": [
+        "مغربية الصحراء ودعم الحكم الذاتي",
+        "تقرير المصير عبر الاستفتاء",
+        "الحياد السلبي",
+        "الفيدرالية"
+      ],
+      "options_en": [
+        "Moroccanity of the Sahara and support for Autonomy",
+        "Self-determination via referendum",
+        "Passive neutrality",
+        "Federalism"
+      ],
+      "answer": "مغربية الصحراء ودعم الحكم الذاتي",
+      "answer_en": "Moroccanity of the Sahara and support for Autonomy",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q11",
+      "question": "ما هو الشاطئ الشهير في سيدي إفني المعروف بأقواسه الصخرية الطبيعية؟",
+      "question_en": "Which famous beach in Sidi Ifni is known for its natural rock arches?",
+      "options": ["شاطئ لغزيرة", "شاطئ فم الواد", "شاطئ كيمادو", "شاطئ مارينا"],
+      "options_en": [
+        "Legzira Beach",
+        "Foum El Oued Beach",
+        "Kimodo Beach",
+        "Marina Beach"
+      ],
+      "answer": "شاطئ لغزيرة",
+      "answer_en": "Legzira Beach",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q12",
+      "question": "ما هي الفاكهة التي تشتهر بها منطقة سيدي إفني وآيت باعمران؟",
+      "question_en": "What fruit is the Sidi Ifni and Ait Baamrane region famous for?",
+      "options": ["الصبار (الهندية)", "التفاح", "الموز", "البرتقال"],
+      "options_en": ["Prickly Pear (Cactus)", "Apple", "Banana", "Orange"],
+      "answer": "الصبار (الهندية)",
+      "answer_en": "Prickly Pear (Cactus)",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q13",
+      "question": "ما هو اسم الوادي الذي يعطي اسمه للجهة ويصب في المحيط الأطلسي؟",
+      "question_en": "What is the name of the wadi (valley) that gives its name to the region and flows into the Atlantic Ocean?",
+      "options": ["وادي نون", "وادي درعة", "وادي ملوية", "وادي سبو"],
+      "options_en": [
+        "Wadi Noun",
+        "Draa Valley",
+        "Moulouya Valley",
+        "Sebou Valley"
+      ],
+      "answer": "وادي نون",
+      "answer_en": "Wadi Noun",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q14",
+      "question": "أشادت تقارير الأمم المتحدة الأخيرة بالنمو الاقتصادي في الجهة، ما هو المشروع الطرقي الضخم الذي يمر بها؟",
+      "question_en": "Recent UN reports praised the economic growth in the region; what major road project passes through it?",
+      "options": [
+        "الطريق السريع تيزنيت - الداخلة",
+        "طريق الوحدة",
+        "طريق تيشكا",
+        "طريق فاس - وجدة"
+      ],
+      "options_en": [
+        "Tiznit-Dakhla Expressway",
+        "Unity Road",
+        "Tichka Road",
+        "Fes-Oujda Road"
+      ],
+      "answer": "الطريق السريع تيزنيت - الداخلة",
+      "answer_en": "Tiznit-Dakhla Expressway",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q15",
+      "question": "ما هو الرقص الشعبي الشهير الذي تؤديه النساء في جهة كلميم واد نون؟",
+      "question_en": "What is the famous folk dance performed by women in the Guelmim-Oued Noun region?",
+      "options": ["رقصة القدرة", "أحواش", "أحيدوس", "الركادة"],
+      "options_en": ["Al-Qadra Dance", "Ahwash", "Ahidous", "Rakkada"],
+      "answer": "رقصة القدرة",
+      "answer_en": "Al-Qadra Dance",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q16",
+      "question": "ما هي البعثة الأممية المسؤولة عن مراقبة وقف إطلاق النار في الصحراء المغربية؟",
+      "question_en": "What is the UN mission responsible for monitoring the ceasefire in the Moroccan Sahara?",
+      "options": ["المينورسو (MINURSO)", "اليونيسف", "الفاو", "اليونسكو"],
+      "options_en": ["MINURSO", "UNICEF", "FAO", "UNESCO"],
+      "answer": "المينورسو (MINURSO)",
+      "answer_en": "MINURSO",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q17",
+      "question": "تشتهر منطقة 'تغجيجت' بإقليم كلميم بإنتاج أجود أنواع:",
+      "question_en": "The 'Taghjijt' area in Guelmim province is famous for producing the finest types of:",
+      "options": ["التمور", "الزيتون", "الأركان", "الزعفران"],
+      "options_en": ["Dates", "Olives", "Argan", "Saffron"],
+      "answer": "التمور",
+      "answer_en": "Dates",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q18",
+      "question": "ما هو اسم الحامة المعدنية الاستشفائية الشهيرة في إقليم كلميم؟",
+      "question_en": "What is the name of the famous therapeutic thermal spring in Guelmim province?",
+      "options": ["أباينو", "مولاي يعقوب", "سيدي حرازم", "عين الله"],
+      "options_en": ["Abainou", "Moulay Yacoub", "Sidi Hrazem", "Ain Allah"],
+      "answer": "أباينو",
+      "answer_en": "Abainou",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q19",
+      "question": "أي دولة من 'خمسة الكبار' في مجلس الأمن كانت السباقة للاعتراف الكامل بمغربية الصحراء؟",
+      "question_en": "Which P5 country in the Security Council was the first to fully recognize the Moroccanity of the Sahara?",
+      "options": ["الولايات المتحدة الأمريكية", "الصين", "بريطانيا", "روسيا"],
+      "options_en": [
+        "United States of America",
+        "China",
+        "United Kingdom",
+        "Russia"
+      ],
+      "answer": "الولايات المتحدة الأمريكية",
+      "answer_en": "United States of America",
+      "region_id": "MA-10"
+    },
+    {
+      "id": "MA-10_Q20",
+      "question": "ما هو الميناء الأطلسي الهام الموجود في إقليم طانطان؟",
+      "question_en": "What is the important Atlantic port located in Tan-Tan province?",
+      "options": [
+        "ميناء طانطان (الوطية)",
+        "ميناء القنيطرة",
+        "ميناء المحمدية",
+        "ميناء أصيلة"
+      ],
+      "options_en": [
+        "Tan-Tan Port (Al-Watiya)",
+        "Kenitra Port",
+        "Mohammedia Port",
+        "Assilah Port"
+      ],
+      "answer": "ميناء طانطان (الوطية)",
+      "answer_en": "Tan-Tan Port (Al-Watiya)",
+      "region_id": "MA-10"
+    }
+  ],
+  "MA-11": [
+    {
+      "id": "MA-11_Q1",
+      "question": "ما هي عاصمة جهة العيون الساقية الحمراء؟",
+      "question_en": "What is the capital of the Laayoune-Sakia El Hamra region?",
+      "options": ["العيون", "بوجدور", "السمارة", "طرفاية"],
+      "options_en": ["Laayoune", "Boujdour", "Smara", "Tarfaya"],
+      "answer": "العيون",
+      "answer_en": "Laayoune",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q2",
+      "question": "ما هو الموقف الذي أكدته قرارات مجلس الأمن الأخيرة (مثل القرار 2756) بخصوص مبادرة الحكم الذاتي؟",
+      "question_en": "What stance did recent Security Council resolutions (e.g., Resolution 2756) confirm regarding the Autonomy Plan Initiative?",
+      "options": [
+        "سمو المبادرة ومصداقيتها",
+        "رفض المبادرة",
+        "اعتبار المبادرة ملغاة",
+        "تأجيل النظر فيها"
+      ],
+      "options_en": [
+        "Serious and credible nature of the initiative",
+        "Rejection of the initiative",
+        "Consideration of the initiative as cancelled",
+        "Postponement of consideration"
+      ],
+      "answer": "سمو المبادرة ومصداقيتها",
+      "answer_en": "Serious and credible nature of the initiative",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q3",
+      "question": "ما هي المدينة الروحية والعلمية في الجهة والمعروفة بالعاصمة الروحية للأقاليم الجنوبية؟",
+      "question_en": "Which city in the region is spiritual and scholarly, known as the spiritual capital of the southern provinces?",
+      "options": ["السمارة", "بوجدور", "طرفاية", "المرسى"],
+      "options_en": ["Smara", "Boujdour", "Tarfaya", "Marsa"],
+      "answer": "السمارة",
+      "answer_en": "Smara",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q4",
+      "question": "أي من القوى العظمى دائمة العضوية في مجلس الأمن افتتحت قنصلية افتراضية وأكدت دعمها لمغربية الصحراء؟",
+      "question_en": "Which permanent member of the UN Security Council opened a virtual consulate and confirmed its support for the Moroccanity of the Sahara?",
+      "options": ["الولايات المتحدة الأمريكية", "روسيا", "الصين", "بريطانيا"],
+      "options_en": [
+        "United States of America",
+        "Russia",
+        "China",
+        "United Kingdom"
+      ],
+      "answer": "الولايات المتحدة الأمريكية",
+      "answer_en": "United States of America",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q5",
+      "question": "ما هو اسم الشاطئ الشهير بمدينة العيون الذي يعتبر متنفساً سياحياً وحاصلاً على اللواء الأزرق؟",
+      "question_en": "What is the name of the famous beach in Laayoune considered a tourist attraction and holder of the Blue Flag?",
+      "options": ["شاطئ فم الواد", "شاطئ لغزيرة", "شاطئ الأمم", "شاطئ كيمادو"],
+      "options_en": [
+        "Foum El Oued Beach",
+        "Legzira Beach",
+        "Nations Beach",
+        "Kimodo Beach"
+      ],
+      "answer": "شاطئ فم الواد",
+      "answer_en": "Foum El Oued Beach",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q6",
+      "question": "أشادت الأمم المتحدة بالدينامية الدبلوماسية في العيون، كم عدد القنصليات الأجنبية (تقريباً) التي تم افتتاحها بالمدينة؟",
+      "question_en": "The UN praised the diplomatic dynamism in Laayoune; approximately how many foreign consulates have been opened in the city?",
+      "options": [
+        "أكثر من 20 قنصلية",
+        "5 قنصليات",
+        "لا توجد قنصليات",
+        "قنصلية واحدة"
+      ],
+      "options_en": [
+        "More than 20 consulates",
+        "5 consulates",
+        "No consulates",
+        "One consulate"
+      ],
+      "answer": "أكثر من 20 قنصلية",
+      "answer_en": "More than 20 consulates",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q7",
+      "question": "ما هي المدينة التي تقع في الجهة وكانت تسمى 'فيلا بنس' إبان الاستعمار الإسباني؟",
+      "question_en": "Which city in the region was called 'Villa Bens' during the Spanish colonization?",
+      "options": ["طرفاية", "العيون", "السمارة", "بوجدور"],
+      "options_en": ["Tarfaya", "Laayoune", "Smara", "Boujdour"],
+      "answer": "طرفاية",
+      "answer_en": "Tarfaya",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q8",
+      "question": "بماذا يلقب إقليم بوجدور في الثقافة المحلية؟",
+      "question_en": "What is the nickname of Boujdour province in local culture?",
+      "options": [
+        "إقليم التحدي",
+        "بوابة الصحراء",
+        "جوهرة الجنوب",
+        "مدينة العلم"
+      ],
+      "options_en": [
+        "Province of Challenge",
+        "Gateway to the Sahara",
+        "Jewel of the South",
+        "City of Knowledge"
+      ],
+      "answer": "إقليم التحدي",
+      "answer_en": "Province of Challenge",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q9",
+      "question": "ما هو اسم الوادي الشهير الذي يعطي اسمه لهذه الجهة؟",
+      "question_en": "What is the name of the famous wadi (valley) that gives its name to this region?",
+      "options": [
+        "الساقية الحمراء",
+        "وادي درعة",
+        "وادي ملوية",
+        "وادي أم الربيع"
+      ],
+      "options_en": [
+        "Sakia El Hamra",
+        "Draa Valley",
+        "Moulouya Valley",
+        "Oum Er-Rbia Valley"
+      ],
+      "answer": "الساقية الحمراء",
+      "answer_en": "Sakia El Hamra",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q10",
+      "question": "ما هو الدور الذي تلعبه اللجان الجهوية لحقوق الإنسان في العيون والسمارة حسب تقارير الأمين العام للأمم المتحدة؟",
+      "question_en": "What role do the Regional Human Rights Commissions in Laayoune and Smara play according to UN Secretary-General reports?",
+      "options": [
+        "تعزيز وحماية حقوق الإنسان ميدانياً",
+        "إدارة الشؤون العسكرية",
+        "تنظيم الرحلات الجوية",
+        "لا دور لها"
+      ],
+      "options_en": [
+        "Promoting and protecting human rights on the ground",
+        "Managing military affairs",
+        "Organizing flights",
+        "No role"
+      ],
+      "answer": "تعزيز وحماية حقوق الإنسان ميدانياً",
+      "answer_en": "Promoting and protecting human rights on the ground",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q11",
+      "question": "أي مادة طبيعية تشتهر منطقة 'بوكراع' بإنتاجها وتصديرها عالمياً؟",
+      "question_en": "What natural material is the 'Boucraa' area famous for producing and exporting globally?",
+      "options": ["الفوسفاط", "الذهب", "الحديد", "الفحم"],
+      "options_en": ["Phosphate", "Gold", "Iron", "Coal"],
+      "answer": "الفوسفاط",
+      "answer_en": "Phosphate",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q12",
+      "question": "ما هو المتحف الشهير الموجود في مدينة طرفاية ويخلد ذكرى الكاتب والطيار 'سانت إيكزوبيري'؟",
+      "question_en": "What famous museum in Tarfaya commemorates the writer and pilot 'Saint-Exupéry'?",
+      "options": [
+        "متحف البريد الجوي (Aéropostale)",
+        "متحف الفن الحديث",
+        "متحف السينما",
+        "متحف المقاومة"
+      ],
+      "options_en": [
+        "Aéropostale Museum",
+        "Modern Art Museum",
+        "Cinema Museum",
+        "Resistance Museum"
+      ],
+      "answer": "متحف البريد الجوي (Aéropostale)",
+      "answer_en": "Aéropostale Museum",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q13",
+      "question": "ما هو الاسم الشعبي الذي يطلق على مدينة العيون في الصحراء؟",
+      "question_en": "What is the popular name given to the city of Laayoune in the Sahara?",
+      "options": [
+        "العيون السفلى",
+        "جوهرة الساقية",
+        "محروسة الصحراء",
+        "العيون الحمراء"
+      ],
+      "options_en": [
+        "Lower Laayoune",
+        "Pearl of the Sakia",
+        "Guarded City of the Sahara",
+        "Red Eyes"
+      ],
+      "answer": "جوهرة الساقية",
+      "answer_en": "Pearl of the Sakia",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q14",
+      "question": "أكدت فرنسا في رسالتها للأمم المتحدة مؤخراً أن حاضر ومستقبل الصحراء يندرج تحت سيادة من؟",
+      "question_en": "France recently confirmed in its letter to the UN that the present and future of the Sahara fall under whose sovereignty?",
+      "options": [
+        "السيادة المغربية",
+        "السيادة الدولية",
+        "السيادة الإسبانية",
+        "الإدارة المشتركة"
+      ],
+      "options_en": [
+        "Moroccan Sovereignty",
+        "International Sovereignty",
+        "Spanish Sovereignty",
+        "Joint Administration"
+      ],
+      "answer": "السيادة المغربية",
+      "answer_en": "Moroccan Sovereignty",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q15",
+      "question": "ما هو المعلم المعماري الرياضي الضخم بمدينة العيون الذي احتضن تظاهرات دولية كبرى؟",
+      "question_en": "What is the huge sports architectural landmark in Laayoune that hosted major international events?",
+      "options": [
+        "قاعة الحزام",
+        "ملعب محمد الخامس",
+        "ملعب أدرار",
+        "ملعب ابن بطوطة"
+      ],
+      "options_en": [
+        "Al Hizam Hall",
+        "Mohammed V Stadium",
+        "Adrar Stadium",
+        "Ibn Battouta Stadium"
+      ],
+      "answer": "قاعة الحزام",
+      "answer_en": "Al Hizam Hall",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q16",
+      "question": "تعتبر مدينة السمارة المدينة الوحيدة في الصحراء التي لم تبنَ على الساحل، أين تقع؟",
+      "question_en": "Smara is the only city in the Sahara not built on the coast; where is it located?",
+      "options": ["في الداخل (البر)", "على ضفاف المحيط", "فوق جبل", "في جزيرة"],
+      "options_en": [
+        "Inland (Mainland)",
+        "On the ocean shore",
+        "Atop a mountain",
+        "On an island"
+      ],
+      "answer": "في الداخل (البر)",
+      "answer_en": "Inland (Mainland)",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q17",
+      "question": "ما هو الميناء الرئيسي التابع لمدينة العيون والذي يعتبر مركزاً اقتصادياً هاماً؟",
+      "question_en": "What is the main port belonging to the city of Laayoune considered an important economic center?",
+      "options": [
+        "ميناء المرسى",
+        "ميناء الجرف الأصفر",
+        "ميناء طنجة",
+        "ميناء المحمدية"
+      ],
+      "options_en": [
+        "Marsa Port",
+        "Jorf Lasfar Port",
+        "Tangier Port",
+        "Mohammedia Port"
+      ],
+      "answer": "ميناء المرسى",
+      "answer_en": "Marsa Port",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q18",
+      "question": "تشتهر مدينة طرفاية بوجود حصن تاريخي وسط البحر بناه الإنجليز، ما اسمه؟",
+      "question_en": "Tarfaya is famous for a historic fort in the sea built by the English; what is its name?",
+      "options": [
+        "كاسامار (Casa Mar)",
+        "قلعة القشلة",
+        "برج الذهب",
+        "حصن الصخرة"
+      ],
+      "options_en": [
+        "Casa Mar",
+        "Qasbah Fortress",
+        "Tower of Gold",
+        "Rock Fort"
+      ],
+      "answer": "كاسامار (Casa Mar)",
+      "answer_en": "Casa Mar",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q19",
+      "question": "ما هو اللباس التقليدي للرجال الذي يفتخر به سكان جهة العيون الساقية الحمراء؟",
+      "question_en": "What is the traditional men's clothing that the people of Laayoune-Sakia El Hamra take pride in?",
+      "options": ["الدراعة", "الجلابة", "القندورة", "التكشيطة"],
+      "options_en": ["Deraa", "Jellaba", "Gandora", "Takchita"],
+      "answer": "الدراعة",
+      "answer_en": "Deraa",
+      "region_id": "MA-11"
+    },
+    {
+      "id": "MA-11_Q20",
+      "question": "أشادت الأمم المتحدة بالاستثمارات المغربية في العيون، ما هو اسم الجامعة الجديدة الكبرى المفتوحة بالمدينة؟",
+      "question_en": "The UN praised Moroccan investments in Laayoune; what is the name of the new major university opened in the city?",
+      "options": [
+        "كلية الطب والصيدلة بالعيون",
+        "جامعة الأخوين",
+        "جامعة القرويين",
+        "جامعة محمد الخامس"
+      ],
+      "options_en": [
+        "Faculty of Medicine and Pharmacy of Laayoune",
+        "Al Akhawayn University",
+        "Al Quaraouiyine University",
+        "Mohammed V University"
+      ],
+      "answer": "كلية الطب والصيدلة بالعيون",
+      "answer_en": "Faculty of Medicine and Pharmacy of Laayoune",
+      "region_id": "MA-11"
+    }
+  ],
+  "MA-12": [
+    {
+      "id": "MA-12_Q1",
+      "question": "ما هي عاصمة جهة الداخلة وادي الذهب؟",
+      "question_en": "What is the capital of the Dakhla-Oued Ed-Dahab region?",
+      "options": ["الداخلة", "بوجدور", "العيون", "أوسرد"],
+      "options_en": ["Dakhla", "Boujdour", "Laayoune", "Aousserd"],
+      "answer": "الداخلة",
+      "answer_en": "Dakhla",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q2",
+      "question": "ما هو الاسم القديم الذي أطلقه الإسبان على مدينة الداخلة؟",
+      "question_en": "What is the old name given by the Spanish to the city of Dakhla?",
+      "options": ["فيلا سيسنيروس", "موكادور", "أنفا", "بورتو ريكو"],
+      "options_en": ["Villa Cisneros", "Mogador", "Anfa", "Porto Rico"],
+      "answer": "فيلا سيسنيروس",
+      "answer_en": "Villa Cisneros",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q3",
+      "question": "أي من هذه الدول الأوروبية أعلنت مؤخراً (يوليو 2024) دعمها الصريح لمغربية الصحراء ومبادرة الحكم الذاتي؟",
+      "question_en": "Which European country recently (July 2024) declared its explicit support for the Moroccanity of the Sahara and the Autonomy Plan?",
+      "options": ["فرنسا", "إيطاليا", "اليونان", "النرويج"],
+      "options_en": ["France", "Italy", "Greece", "Norway"],
+      "answer": "فرنسا",
+      "answer_en": "France",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q4",
+      "question": "ما هو اسم المشروع المينائي الضخم الجاري إنشاؤه في الجهة والذي سيعزز الربط مع أفريقيا؟",
+      "question_en": "What is the name of the huge port project under construction in the region that will enhance links with Africa?",
+      "options": [
+        "ميناء الداخلة الأطلسي",
+        "ميناء طنجة المتوسط",
+        "ميناء الجرف الأصفر",
+        "ميناء الناظور"
+      ],
+      "options_en": [
+        "Dakhla Atlantic Port",
+        "Tangier Med Port",
+        "Jorf Lasfar Port",
+        "Nador Port"
+      ],
+      "answer": "ميناء الداخلة الأطلسي",
+      "answer_en": "Dakhla Atlantic Port",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q5",
+      "question": "تشتهر مدينة الداخلة عالمياً بكونها وجهة رائدة لممارسة رياضة:",
+      "question_en": "Dakhla is world-famous for being a leading destination for practicing:",
+      "options": [
+        "الألواح الشراعية (Kitesurf)",
+        "التزلج على الجليد",
+        "تسلق الجبال",
+        "سباق السيارات"
+      ],
+      "options_en": [
+        "Kitesurfing",
+        "Ice Skating",
+        "Mountain Climbing",
+        "Car Racing"
+      ],
+      "answer": "الألواح الشراعية (Kitesurf)",
+      "answer_en": "Kitesurfing",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q6",
+      "question": "ما هو اللقب الجغرافي الذي يطلق على مدينة الداخلة بسبب موقعها؟",
+      "question_en": "What geographical nickname is given to the city of Dakhla due to its location?",
+      "options": ["شبه جزيرة", "جزيرة معزولة", "جبل بركاني", "واحة صحراوية"],
+      "options_en": [
+        "Peninsula",
+        "Isolated Island",
+        "Volcanic Mountain",
+        "Desert Oasis"
+      ],
+      "answer": "شبه جزيرة",
+      "answer_en": "Peninsula",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q7",
+      "question": "أشادت تقارير الأمم المتحدة الأخيرة بالبنية التحتية بالداخلة، ما هو الطريق الذي يربطها بشمال المملكة؟",
+      "question_en": "Recent UN reports praised the infrastructure in Dakhla; what road connects it to the north of the Kingdom?",
+      "options": [
+        "الطريق السريع تيزنيت - الداخلة",
+        "طريق الوحدة",
+        "طريق تيشكا",
+        "السيار الرباط - طنجة"
+      ],
+      "options_en": [
+        "Tiznit-Dakhla Expressway",
+        "Unity Road",
+        "Tichka Road",
+        "Rabat-Tangier Highway"
+      ],
+      "answer": "الطريق السريع تيزنيت - الداخلة",
+      "answer_en": "Tiznit-Dakhla Expressway",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q8",
+      "question": "ما هو اسم الخليج الشهير الذي تطل عليه مدينة الداخلة ويتميز بهدوئه وتنوعه البيولوجي؟",
+      "question_en": "What is the name of the famous gulf on which Dakhla overlooks, known for its calmness and biological diversity?",
+      "options": ["خليج وادي الذهب", "خليج طنجة", "خليج أكادير", "خليج قابس"],
+      "options_en": [
+        "Gulf of Oued Ed-Dahab",
+        "Gulf of Tangier",
+        "Gulf of Agadir",
+        "Gulf of Gabes"
+      ],
+      "answer": "خليج وادي الذهب",
+      "answer_en": "Gulf of Oued Ed-Dahab",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q9",
+      "question": "أي إقليم يتبع لهذه الجهة ويقع في أقصى الجنوب بالداخل؟",
+      "question_en": "Which province belongs to this region and is located in the far south inland?",
+      "options": ["إقليم أوسرد", "إقليم السمارة", "إقليم طرفاية", "إقليم طاطا"],
+      "options_en": [
+        "Aousserd Province",
+        "Smara Province",
+        "Tarfaya Province",
+        "Tata Province"
+      ],
+      "answer": "إقليم أوسرد",
+      "answer_en": "Aousserd Province",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q10",
+      "question": "ما هو الموقف الأمريكي الرسمي المسجل في الأمم المتحدة منذ عام 2020 بخصوص الصحراء؟",
+      "question_en": "What is the official US position recorded at the UN since 2020 regarding the Sahara?",
+      "options": [
+        "الاعتراف بسيادة المغرب الكاملة",
+        "دعم الانفصال",
+        "البقاء على الحياد",
+        "المطالبة بالوصاية"
+      ],
+      "options_en": [
+        "Recognition of full Moroccan sovereignty",
+        "Support for separatism",
+        "Remaining neutral",
+        "Demanding trusteeship"
+      ],
+      "answer": "الاعتراف بسيادة المغرب الكاملة",
+      "answer_en": "Recognition of full Moroccan sovereignty",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q11",
+      "question": "ما هو الموقع الطبيعي السياحي بالداخلة المعروف بكثبانه الرملية البيضاء وسط البحر؟",
+      "question_en": "What natural tourist site in Dakhla is known for its white sand dunes in the middle of the sea?",
+      "options": [
+        "الكثيب الأبيض (Dune Blanche)",
+        "مغارة هرقل",
+        "عين مسكي",
+        "شلالات أوزود"
+      ],
+      "options_en": [
+        "White Dune (Dune Blanche)",
+        "Hercules Cave",
+        "Ain Msiki",
+        "Ouzoud Falls"
+      ],
+      "answer": "الكثيب الأبيض (Dune Blanche)",
+      "answer_en": "White Dune (Dune Blanche)",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q12",
+      "question": "تشتهر الداخلة بإنتاج وتصدير نوع خاص من المنتجات البحرية الفاخرة، ما هو؟",
+      "question_en": "Dakhla is famous for producing and exporting a special type of luxury seafood, what is it?",
+      "options": ["المحار (الأصداف)", "السلمون", "المرجان", "إسفنج البحر"],
+      "options_en": ["Oysters", "Salmon", "Coral", "Sea Sponge"],
+      "answer": "المحار (الأصداف)",
+      "answer_en": "Oysters",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q13",
+      "question": "ما هو اسم المعبر الحدودي البري الذي يربط المغرب بموريتانيا ويقع جنوب جهة الداخلة؟",
+      "question_en": "What is the name of the land border crossing that links Morocco with Mauritania located south of the Dakhla region?",
+      "options": ["الكركرات", "بني انصار", "زوج بغال", "باب سبتة"],
+      "options_en": ["Guerguarat", "Bni Ansar", "Zouj Bghal", "Bab Sebta"],
+      "answer": "الكركرات",
+      "answer_en": "Guerguarat",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q14",
+      "question": "بماذا وصفت الأمم المتحدة في تقاريرها الأخيرة مناخ الاستثمار في الأقاليم الجنوبية؟",
+      "question_en": "How did the UN describe the investment climate in the southern provinces in its latest reports?",
+      "options": ["دينامي وواعد", "منهار", "ممنوع", "ضعيف جداً"],
+      "options_en": [
+        "Dynamic and promising",
+        "Collapsed",
+        "Prohibited",
+        "Very weak"
+      ],
+      "answer": "دينامي وواعد",
+      "answer_en": "Dynamic and promising",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q15",
+      "question": "ما هو الحيوان البحري النادر الذي يعيش في سواحل الداخلة ويعد محمياً دولياً؟",
+      "question_en": "What rare marine animal lives on the coasts of Dakhla and is internationally protected?",
+      "options": [
+        "فقمة الراهب",
+        "الدلفين الوردي",
+        "الحوت الأزرق",
+        "قرش المطرقة"
+      ],
+      "options_en": [
+        "Monk Seal",
+        "Pink Dolphin",
+        "Blue Whale",
+        "Hammerhead Shark"
+      ],
+      "answer": "فقمة الراهب",
+      "answer_en": "Monk Seal",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q16",
+      "question": "كم عدد القنصليات الأجنبية (تقريباً) التي افتتحت بمدينة الداخلة دعماً لمغربية الصحراء؟",
+      "question_en": "Approximately how many foreign consulates have been opened in the city of Dakhla in support of the Moroccanity of the Sahara?",
+      "options": [
+        "أكثر من 15 قنصلية",
+        "قنصلية واحدة",
+        "لا توجد قنصليات",
+        "30 قنصلية"
+      ],
+      "options_en": [
+        "More than 15 consulates",
+        "One consulate",
+        "No consulates",
+        "30 consulates"
+      ],
+      "answer": "أكثر من 15 قنصلية",
+      "answer_en": "More than 15 consulates",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q17",
+      "question": "ما هي الفلاحة المتطورة التي تشتهر بها الداخلة رغم طبيعتها الصحراوية؟",
+      "question_en": "What advanced agriculture is Dakhla famous for despite its desert nature?",
+      "options": [
+        "إنتاج الطماطم الكرزية (Cherries)",
+        "زراعة الأرز",
+        "زراعة قصب السكر",
+        "غابات الأرز"
+      ],
+      "options_en": [
+        "Cherry Tomato Production",
+        "Rice Cultivation",
+        "Sugarcane Cultivation",
+        "Cedar Forests"
+      ],
+      "answer": "إنتاج الطماطم الكرزية (Cherries)",
+      "answer_en": "Cherry Tomato Production",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q18",
+      "question": "ما هو المهرجان الثقافي السنوي الذي يحتفي بالحياة الصحراوية والسينما في الداخلة؟",
+      "question_en": "What annual cultural festival celebrates Saharan life and cinema in Dakhla?",
+      "options": [
+        "مهرجان الداخلة السينمائي",
+        "موسم طانطان",
+        "مهرجان موازين",
+        "مهرجان الورود"
+      ],
+      "options_en": [
+        "Dakhla Film Festival",
+        "Tan-Tan Moussem",
+        "Mawazine",
+        "Rose Festival"
+      ],
+      "answer": "مهرجان الداخلة السينمائي",
+      "answer_en": "Dakhla Film Festival",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q19",
+      "question": "أي منظمة دولية تتابع التطورات في الداخلة عبر مكاتب 'المينورسو'؟",
+      "question_en": "Which international organization monitors developments in Dakhla via 'MINURSO' offices?",
+      "options": [
+        "هيئة الأمم المتحدة",
+        "جامعة الدول العربية",
+        "الاتحاد الأوروبي",
+        "حلف الناتو"
+      ],
+      "options_en": ["United Nations", "Arab League", "European Union", "NATO"],
+      "answer": "هيئة الأمم المتحدة",
+      "answer_en": "United Nations",
+      "region_id": "MA-12"
+    },
+    {
+      "id": "MA-12_Q20",
+      "question": "ما هو تاريخ استرجاع إقليم وادي الذهب إلى حوزة الوطن وتقديم بيعة سكان الداخلة؟",
+      "question_en": "What is the date of the recovery of the Oued Ed-Dahab province to the homeland and the allegiance of Dakhla's inhabitants?",
+      "options": [
+        "14 غشت 1979",
+        "6 نونبر 1975",
+        "18 نونبر 1956",
+        "30 يوليوز 1999"
+      ],
+      "options_en": [
+        "August 14, 1979",
+        "November 6, 1975",
+        "November 18, 1956",
+        "July 30, 1999"
+      ],
+      "answer": "14 غشت 1979",
+      "answer_en": "August 14, 1979",
+      "region_id": "MA-12"
+    }
+  ]
+}
