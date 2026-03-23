@@ -20,26 +20,37 @@
 
         <!-- 2. HOME SCREEN -->
         <div id="home-screen" class="overlay active">
+            <!-- Language Toggle Button (Top Left) -->
+            <button id="home-lang-btn" onclick="toggleLang()">EN</button>
+
             <div class="home-content">
                 <h1 class="main-title">ONE MOROCCO</h1>
-                <p class="subtitle">اكتشف المغرب العميق</p>
+                <p id="home-subtitle" class="subtitle">اكتشف المغرب العميق</p>
+
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="startQuizMode()">
+                    <button
+                        id="btn-quiz"
+                        class="btn btn-primary"
+                        onclick="startQuizMode()"
+                    >
                         🚀 ابدأ الاختبار
                     </button>
                     <button
+                        id="btn-explore"
                         class="btn btn-secondary"
                         onclick="startExploreMode()"
                     >
                         🗺️ استكشف الخريطة
                     </button>
                     <button
+                        id="btn-tutorial"
                         class="btn btn-tertiary"
                         onclick="openModal('tutorial')"
                     >
                         ❔ كيفية الاستخدام
                     </button>
                     <button
+                        id="btn-history"
                         class="btn btn-tertiary"
                         onclick="openModal('history')"
                     >
@@ -49,9 +60,9 @@
             </div>
         </div>
 
-        <!-- 3. EXPLORE NAV (Top Bar) -->
+        <!-- 3. EXPLORE NAV -->
         <div id="explore-nav" class="top-nav">
-            <h3>وضع الاستكشاف</h3>
+            <h3 id="explore-title">وضع الاستكشاف</h3>
             <button class="btn btn-primary" onclick="goHome()">
                 🏠 الرئيسية
             </button>
@@ -60,7 +71,7 @@
         <!-- 4. QUIZ SIDEBAR -->
         <div id="quiz-sidebar" class="sidebar">
             <div class="sidebar-header">
-                <h2>الجهات الصحراوية</h2>
+                <h2 id="sidebar-title">الجهات الصحراوية</h2>
                 <button class="btn-back" onclick="goHome()">→ العودة</button>
             </div>
             <div id="region-list"></div>
@@ -74,9 +85,11 @@
                 <span class="close-btn" onclick="closeModal('tutorial')"
                     >&times;</span
                 >
-                <h2>كيفية الاستخدام</h2>
-                <p>1. اختر منطقة من القائمة.</p>
-                <p>2. أجب على الأسئلة لفتح المناطق التالية.</p>
+                <h2 id="tutorial-title">كيفية الاستخدام</h2>
+                <div id="tutorial-body">
+                    <p>1. اختر منطقة من القائمة.</p>
+                    <p>2. أجب على الأسئلة لفتح المناطق التالية.</p>
+                </div>
             </div>
         </div>
 
@@ -113,7 +126,6 @@
                 <span class="close-btn" onclick="closeModal('quiz')"
                     >&times;</span
                 >
-                <button id="lang-toggle" onclick="toggleLang()">EN</button>
 
                 <div id="quiz-header">
                     <h2 id="quiz-title">جهة...</h2>
