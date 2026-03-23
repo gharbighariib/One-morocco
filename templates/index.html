@@ -2,7 +2,12 @@
 <html lang="ar" dir="rtl">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>One Morocco</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap"
+            rel="stylesheet"
+        />
         <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -10,89 +15,126 @@
         <link rel="stylesheet" href="/static/css/style.css" />
     </head>
     <body>
+        <!-- 1. MAP -->
+        <div id="map"></div>
 
-        <div id="app-container">
-            <!-- RIGHT: Sidebar (Navigation) -->
-            <div id="sidebar">
-                <div style="padding: 20px; border-bottom: 1px solid #eee;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h1 id="sidebar-title" style="margin:0; font-size: 1.5rem; color: var(--primary);">الجهات الصحراوية</h1>
+        <!-- 2. HOME SCREEN -->
+        <div id="home-screen" class="overlay active">
+            <div class="home-content">
+                <h1 class="main-title">ONE MOROCCO</h1>
+                <p class="subtitle">اكتشف المغرب العميق</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="startQuizMode()">
+                        🚀 ابدأ الاختبار
+                    </button>
+                    <button
+                        class="btn btn-secondary"
+                        onclick="startExploreMode()"
+                    >
+                        🗺️ استكشف الخريطة
+                    </button>
+                    <button
+                        class="btn btn-tertiary"
+                        onclick="openModal('tutorial')"
+                    >
+                        ❔ كيفية الاستخدام
+                    </button>
+                    <button
+                        class="btn btn-tertiary"
+                        onclick="openModal('history')"
+                    >
+                        📜 التاريخ
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                        <div style="display: flex; gap: 5px;">
-                            <button onclick="openHelpModal()" style="background:none; border:1px solid #ddd; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:1rem;">❔</button>
-                            <button onclick="toggleLanguage()" id="lang-btn" style="background:var(--primary); color:white; border:none; border-radius:4px; padding: 0 10px; height:30px; cursor:pointer; font-weight:bold;">EN</button>
-                        </div>
+        <!-- 3. EXPLORE NAV (Top Bar) -->
+        <div id="explore-nav" class="top-nav">
+            <h3>وضع الاستكشاف</h3>
+            <button class="btn btn-primary" onclick="goHome()">
+                🏠 الرئيسية
+            </button>
+        </div>
+
+        <!-- 4. QUIZ SIDEBAR -->
+        <div id="quiz-sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>الجهات الصحراوية</h2>
+                <button class="btn-back" onclick="goHome()">→ العودة</button>
+            </div>
+            <div id="region-list"></div>
+        </div>
+
+        <!-- 5. MODALS -->
+
+        <!-- Tutorial Modal -->
+        <div id="tutorial-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('tutorial')"
+                    >&times;</span
+                >
+                <h2>كيفية الاستخدام</h2>
+                <p>1. اختر منطقة من القائمة.</p>
+                <p>2. أجب على الأسئلة لفتح المناطق التالية.</p>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div id="history-modal" class="modal">
+            <div class="modal-content fullscreen">
+                <span
+                    class="close-btn"
+                    style="color: white"
+                    onclick="closeModal('history')"
+                    >&times;</span
+                >
+                <iframe
+                    src="https://gamma.app/embed/u2mhzp72zaj0yrn"
+                    allow="fullscreen"
+                ></iframe>
+            </div>
+        </div>
+
+        <!-- Info Modal (Explore) -->
+        <div id="info-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('info')"
+                    >&times;</span
+                >
+                <h2 id="info-title">اسم الجهة</h2>
+                <div id="info-body"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Modal -->
+        <div id="quiz-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('quiz')"
+                    >&times;</span
+                >
+                <button id="lang-toggle" onclick="toggleLang()">EN</button>
+
+                <div id="quiz-header">
+                    <h2 id="quiz-title">جهة...</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill"></div>
                     </div>
                 </div>
 
-                <div id="itinerary-list" style="padding: 0 15px;">
-                    <!-- List items rendered by JS -->
-                </div>
-            </div>
-
-            <!-- CENTER: Map -->
-            <div id="map"></div>
-
-            <!-- LEFT: Info Panel (New Position) -->
-            <div id="info-panel">
-                <div id="info-placeholder">
-                    <span style="font-size: 2rem; display: block; margin-bottom: 10px;">🗺️</span>
-                    <p id="info-placeholder-text" style="margin:0; font-size: 0.95rem;">مرر الماوس على منطقة للاطلاع على المعلومات</p>
-                </div>
-                <div id="info-content" style="display: none;"></div>
-            </div>
-        </div>
-
-        <!-- QUIZ MODAL -->
-        <div id="quiz-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="document.getElementById('quiz-modal').style.display='none'">&times;</span>
-                <div id="quiz-content"></div>
-            </div>
-        </div>
-
-        <!-- GAMMA MODAL -->
-        <!-- GAMMA MODAL -->
-        <div id="gamma-modal" class="modal">
-            <!-- Increased max-width for better viewing -->
-            <div class="modal-content" style="max-width: 900px; height: 90vh; padding: 0; position: relative; overflow: hidden;">
-                <!-- FIX: Higher Z-index for button and added explicit position -->
-                <span class="close-btn" onclick="closeGammaModal()" style="position: absolute; top: 15px; right: 15px; z-index: 1000; background: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">&times;</span>
-                <iframe
-                    src="https://gamma.app/embed/u2mhzp72zaj0yrn"
-                    style="width: 100%; height: 100%; border: none;"
-                    allow="fullscreen"
-                    title="History">
-                </iframe>
-            </div>
-        </div>
-
-        <!-- NEW: HELP MODAL -->
-        <div id="help-modal" class="modal">
-            <div class="modal-content" style="max-width: 600px;">
-                <span class="close-btn" onclick="closeHelpModal()">&times;</span>
-                <h2 id="help-title" style="margin-bottom: 20px; color: var(--primary);">كيفية استخدام التطبيق</h2>
-                <div id="help-content" style="line-height: 1.8; color: #555;">
-                    <p><strong>1. الخريطة:</strong> الخريطة تعرض الأقاليم الجنوبية للمغرب. المناطق الرمادية مغلقة حالياً.</p>
-                    <br>
-                    <p><strong>2. الاختبارات:</strong> انقر على منطقة مفتوحة (زرقاء) لبدء اختبار من 5 أسئلة.</p>
-                    <br>
-                    <p><strong>3. التقدم:</strong>
-                       <ul>
-                           <li>الشريط الأزرق يمتد مع كل إجابة صحيحة.</li>
-                           <li>عندما يصل الشريط إلى 75%، تفتح المنطقة التالية تلقائياً!</li>
-                       </ul>
-                    </p>
-                    <br>
-                    <p><strong>4. تطوير (لجنة التحكيم):</strong>
-                       اضغط <strong>Ctrl + Shift + D</strong> لفتح جميع المناطق فوراً للاختبار.</p>
+                <div id="quiz-body"></div>
+                <div id="quiz-footer" style="text-align: center; display: none">
+                    <button
+                        class="btn btn-primary"
+                        onclick="startQuiz(currentRegionId)"
+                    >
+                        إعادة
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Scripts -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-        <script src="/static/js/map.js"></script>
-        <script src="/static/js/quiz.js"></script>
+        <script src="/static/js/app.js"></script>
     </body>
 </html>
