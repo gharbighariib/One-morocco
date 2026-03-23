@@ -1,23 +1,71 @@
 {
   "MA-10": {
-    "name": "كلميم واد نون",
-    "capital": "كلميم",
-    "population": "حوالي 466,000 نسمة",
-    "description": "تقع في جنوب المغرب، وتعتبر البوابة الجنوبية للمملكة. تشتهر ب واحات النخيل، والتراث الصخري، وصناعة الحلي الفضية.",
-    "keywords": ["واحات", "صحراء", "إبل", "فنون"]
+    "name_ar": "كلميم واد نون",
+    "name_en": "Guelmim-Oued Noun",
+    "capital_ar": "كلميم",
+    "capital_en": "Guelmim",
+    "population": "466,000",
+    "keywords_ar": ["الصحراء", "الواحات", "الإبل", "التاريخ"],
+    "keywords_en": ["Sahara", "Oases", "Camels", "History"],
+    "bullets_ar": [
+      "تُلقب بـ 'بوابة الصحراء' لكونها المعبر الرئيسي نحو الجنوب.",
+      "تشتهر بسوق 'أمحيريش' الأسبوعي، أكبر سوق للإبل في أفريقيا.",
+      "تتميز بمنابع 'أباينو' المعدنية الطبيعية.",
+      "تضم واحات خصبة في 'تغجيجت' تنتج أجود أنواع التمور.",
+      "تعتبر معبراً ثقافياً بين 'سوس' والصحراء."
+    ],
+    "bullets_en": [
+      "Known as the 'Gateway to the Sahara'.",
+      "Home to the 'Amhirich' weekly market, Africa's largest camel market.",
+      "Features the natural thermal springs of 'Abainou'.",
+      "Contains lush oases in 'Taghjijt' producing high-quality dates.",
+      "Acts as a cultural bridge between the 'Souss' region and the Sahara."
+    ]
   },
   "MA-11": {
-    "name": "العيون الساقية الحمراء",
-    "capital": "العيون",
-    "population": "حوالي 410,000 نسمة",
-    "description": "أكبر جهة في الصحراء المغربية. تضم مدينة العيون، والسمارة، وطرفاية. غنية بالفوسفاط، والثروات السمكية، والنشاط الدبلوماسي.",
-    "keywords": ["فوسفاط", "طرفاية", "قنصليات", "صيد"]
+    "name_ar": "العيون الساقية الحمراء",
+    "name_en": "Laayoune-Sakia El Hamra",
+    "capital_ar": "العيون",
+    "capital_en": "Laayoune",
+    "population": "410,000",
+    "keywords_ar": ["الفوسفاط", "الصحراء", "الصيد", "الدبلوماسية"],
+    "keywords_en": ["Phosphate", "Sahara", "Fishing", "Diplomacy"],
+    "bullets_ar": [
+      "أكبر جهة في الأقاليم الجنوبية.",
+      "تضم مناجم 'بوكراع' للفوسفاط الأكثر نقاءً في العالم.",
+      "مدينة 'السمارة' تعتبر العاصمة الروحية للصحراء.",
+      "تحتضن العيون أكثر من 20 قنصلية أجنبية دعماً لمغربية الصحراء.",
+      "تتميز بشاطئ 'فم الواد' الحاصل على اللواء الأزرق."
+    ],
+    "bullets_en": [
+      "The largest region in the Southern Provinces.",
+      "Home to 'Bou Craa' mines, containing the purest phosphate in the world.",
+      "The city of 'Smara' is considered the spiritual capital of the Sahara.",
+      "Laayoune hosts over 20 foreign consulates supporting Moroccan sovereignty.",
+      "Features 'Foum El Oued' beach, awarded the Blue Flag."
+    ]
   },
   "MA-12": {
-    "name": "الداخلة وادي الذهب",
-    "capital": "الداخلة",
-    "population": "حوالي 180,000 نسمة",
-    "description": "تقع في أقصى جنوب المملكة، تشتهر بشواطئها الخلابة (الكثيب الأبيض) ورياضة ركوب الأمواج (Kitesurf). تتمتع بطبيعة استثنائية وبحيرة وادي الذهب.",
-    "keywords": ["أمواج", "سياحة", "محار", "رياضات بحرية"]
+    "name_ar": "الداخلة وادي الذهب",
+    "name_en": "Dakhla-Oued Ed-Dahab",
+    "capital_ar": "الداخلة",
+    "capital_en": "Dakhla",
+    "population": "180,000",
+    "keywords_ar": ["الرياضات البحرية", "الصيد", "السياحة", "المحار"],
+    "keywords_en": ["Watersports", "Fishing", "Tourism", "Oysters"],
+    "bullets_ar": [
+      "تقع على شبه جزيرة بين المحيط والخليج.",
+      "وجهة عالمية لرياضة ركوب الأمواج (Kitesurf) والطيران الشراعي.",
+      "ثاني أكبر منتج للمحار في أفريقيا.",
+      "تتميز بـ 'الكثيب الأبيض' المعلق فوق الماء.",
+      "مركز هام للصيد التقليدي والصناعي."
+    ],
+    "bullets_en": [
+      "Located on a peninsula between the ocean and the bay.",
+      "A global destination for Kitesurfing and windsurfing.",
+      "The 2nd largest oyster producer in Africa.",
+      "Famous for the 'White Dune' suspended over the water.",
+      "An important hub for traditional and industrial fishing."
+    ]
   }
 }

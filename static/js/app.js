@@ -303,6 +303,7 @@ function updateProgress(p) {
 }
 
 // --- Explore ---
+// --- Explore ---
 async function handleMapClick(id) {
   if (appMode === "explore") {
     try {
@@ -310,11 +311,43 @@ async function handleMapClick(id) {
       const info = await res.json();
       const d = info[id] || {
         name: TRANSLATIONS[lang].region_names[id],
-        description: "Info",
+        bullets: [],
       };
-      document.getElementById("info-title").innerText = d.name;
-      document.getElementById("info-body").innerHTML =
-        `<p>${d.description}</p>`;
+
+      // Select language specific fields
+      const name = lang === "en" ? d.name_en : d.name_ar;
+      const capital = lang === "en" ? d.capital_en : d.capital_ar;
+      const bullets = lang === "en" ? d.bullets_en : d.bullets_ar;
+      const keywords = lang === "en" ? d.keywords_en : d.keywords_ar;
+      const capitalLabel = lang === "en" ? "Capital" : "العاصمة";
+      const popLabel = lang === "en" ? "Population" : "عدد السكان";
+
+      // Generate Bullet List HTML
+      let bulletsHtml = bullets
+        .map(
+          (b) => `<li style="margin-bottom: 8px; line-height: 1.5;">${b}</li>`,
+        )
+        .join("");
+
+      // Generate Keywords HTML
+      let keywordsHtml = keywords
+        .map(
+          (k) =>
+            `<span style="background:#eee; padding:2px 8px; border-radius:4px; margin-left:5px;">${k}</span>`,
+        )
+        .join("");
+
+      document.getElementById("info-title").innerText = name;
+      document.getElementById("info-body").innerHTML = `
+        <div style="margin-bottom: 15px; display: flex; gap: 20px; border-bottom:1px solid #eee; padding-bottom:10px;">
+            <span><strong>${capitalLabel}:</strong> ${capital}</span>
+            <span><strong>${popLabel}:</strong> ${d.population}</span>
+        </div>
+        <ul style="list-style: disc; padding-right: 20px; margin-bottom: 20px;">
+            ${bulletsHtml}
+        </ul>
+        <div><strong>🏷️ ${lang === "en" ? "Keywords" : "الكلمات المفتاحية"}:</strong> ${keywordsHtml}</div>
+      `;
       openModal("info");
     } catch (e) {
       console.error(e);

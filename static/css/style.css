@@ -315,3 +315,37 @@ body {
 .modal-content.correct {
     border: 2px solid #28a745;
 }
+/* Add this to the bottom of your CSS file */
+
+/* --- Fullscreen Modal Fix --- */
+.modal-content.fullscreen {
+    width: 95vw;
+    height: 95vh; /* Taller */
+    padding: 0;
+    border-radius: 10px; /* Slight rounding looks better */
+    max-width: none;
+    max-height: none;
+    overflow: hidden; /* Let iframe handle scrolling */
+}
+
+.modal-content.fullscreen iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Make sure close button is visible on dark backgrounds */
+.modal-content.fullscreen .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
